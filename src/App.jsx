@@ -12,6 +12,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { doGetInfoAccount } from "./redux/account/accountSlice";
 import Loading from "./common/Loading";
 import NotFoundPage from "./pages/notfound";
+import BookPage from "./pages/book";
+import AdminPage from "./pages/admin";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const Layout = () => {
   return <div className="layout">
@@ -20,13 +23,31 @@ const Layout = () => {
   <Footer/>
   </div>;
 };
+const LayoutAdmin = () => {
+  const isAdminRoute = window.location.pathname.startsWith("/admin");
+  const user = useSelector(state => state.account.user);
+  const userRole = user.role;
+
+  return <div className="layout">
+      {isAdminRoute && userRole === 'ADMIN' && <Header/>}
+        <Outlet/>
+      {isAdminRoute && userRole === 'ADMIN' && <Footer/>}
+  </div>;
+};
+
 
 //Lay data user tu api de gui den redux
 export default function App() {
   const dispatch = useDispatch();
-  const isAuthenticated = useSelector(state => state.account.isAuthenticated)
+  const isAuthenticated = useSelector(state => state.account.isAuthenticated);
 
   const getAccount = async () => {
+    if (window.location.pathname === '/login' 
+      || window.location.pathname === 'register'
+      || window.location.pathname === '/'
+     ) 
+      return;
+
     const res = await callFetchAccount();
     if(res && res.data) {
       dispatch(doGetInfoAccount(res.data))
@@ -47,6 +68,26 @@ export default function App() {
           path: "contact",
           element: <ContactPage />,
         },
+        {
+          path: "book",
+          element: <BookPage />,
+        },
+      ],
+    },
+    {
+      path: "/admin",
+      element: <LayoutAdmin />,
+      errorElement: <NotFoundPage/>,
+      children: [
+        { index: true, element: 
+        <ProtectedRoute>
+          <AdminPage />
+        </ProtectedRoute>
+      },
+        {
+          path: "contact",
+          element: <ContactPage />,
+        },
       ],
     },
     {
@@ -60,7 +101,11 @@ export default function App() {
   ]);
   return (
     <>
-    {isAuthenticated === true ? 
+    {isAuthenticated === true 
+      || window.location.pathname === '/login' 
+      || window.location.pathname === '/register' 
+      || window.location.pathname === '/' 
+      ? 
       <RouterProvider router={router} />
       : <Loading/>
     }

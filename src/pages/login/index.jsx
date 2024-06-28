@@ -3,7 +3,7 @@ import { Button, Divider, Form, Input, message, notification } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import { callLogin } from '../../services/api';
 import './login.scss'
-import { LockFilled } from '@ant-design/icons';
+import { SmileOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { doLoginAction } from '../../redux/account/accountSlice';
 
@@ -37,8 +37,8 @@ const LoginPage = () => {
     <div className="register-page">
       <section className="wrapper">
         <div className="heading">
-          <span style= {{fontSize: "25px", color: "#0278cf"}}>
-          <LockFilled  />
+          <span style= {{fontSize: "25px", color: "#188ee3"}}>
+          <SmileOutlined />
           </span>
           <h2 className="text text-large">Đăng Nhập Tài Khoản</h2>
           <Divider />
@@ -74,7 +74,7 @@ const LoginPage = () => {
               Đăng nhập
             </Button>
           </Form.Item>
-          <Divider>Or</Divider>
+          <Divider style={{fontSize: "14px", fontWeight: "400"}}>Hoặc</Divider>
           <p className="text text-normal">
             Chưa có tài khoản?
             <span>

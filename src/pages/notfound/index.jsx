@@ -11,7 +11,7 @@ const NotFoundPage = () => {
             status="404"
             title="404"
             style={{paddingTop: "30px"}}
-            subTitle="Xin lỗi, trang bạn truy cập không tồn tại :(."
+            subTitle="Xin lỗi, trang bạn truy cập không tồn tại :("
             extra={<Button type="primary" onClick={() => navigate("/")}>Về trang chủ</Button>}
             />
         </div>

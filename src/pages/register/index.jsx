@@ -3,7 +3,7 @@ import './register.scss';
 import { Button, Divider, Form, Input, message, notification } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import { callRegister } from '../../services/api';
-import { LockFilled } from '@ant-design/icons';
+import { SmileOutlined } from '@ant-design/icons';
 
 const RegisterPage = () => {
   const navigate = useNavigate()
@@ -31,8 +31,8 @@ const RegisterPage = () => {
     <div className="register-page">
       <section className="wrapper">
         <div className="heading">
-        <span style= {{fontSize: "25px", color: "#0278cf"}}>
-          <LockFilled />
+        <span style= {{fontSize: "25px", color: "#188ee3"}}>
+          <SmileOutlined />
           </span>
           <h2 className="text text-large">Đăng Ký Tài Khoản</h2>
           <Divider />
@@ -84,7 +84,7 @@ const RegisterPage = () => {
             </Button>
           </Form.Item>
 
-          <Divider>Or</Divider>
+          <Divider style={{fontSize: "14px", fontWeight: "400"}}>Hoặc</Divider>
           <p className="text text-normal">
             Đã có tài khoản?
             <span>
