@@ -8,8 +8,10 @@ import Footer from "./components/Footer";
 import Home from "./components/Home";
 import RegisterPage from "./pages/register";
 import { callFetchAccount } from "./services/api";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { doGetInfoAccount } from "./redux/account/accountSlice";
+import Loading from "./common/Loading";
+import NotFoundPage from "./pages/notfound";
 
 const Layout = () => {
   return <div className="layout">
@@ -22,6 +24,8 @@ const Layout = () => {
 //Lay data user tu api de gui den redux
 export default function App() {
   const dispatch = useDispatch();
+  const isAuthenticated = useSelector(state => state.account.isAuthenticated)
+
   const getAccount = async () => {
     const res = await callFetchAccount();
     if(res && res.data) {
@@ -36,7 +40,7 @@ export default function App() {
     {
       path: "/",
       element: <Layout />,
-      errorElement: <div>404</div>,
+      errorElement: <NotFoundPage/>,
       children: [
         { index: true, element: <Home /> },
         {
@@ -56,7 +60,10 @@ export default function App() {
   ]);
   return (
     <>
+    {isAuthenticated === true ? 
       <RouterProvider router={router} />
+      : <Loading/>
+    }
     </>
   );
 }
