@@ -1,10 +1,12 @@
 import React from "react";
 import LoginPage from "./pages/login";
+import './App.css';
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import ContactPage from "./pages/contact";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./components/Home";
+import RegisterPage from "./pages/register";
 
 const Layout = () => {
   return <div className="layout">
@@ -31,6 +33,10 @@ export default function App() {
     {
       path: "/login",
       element: <LoginPage />,
+    },
+    {
+      path: "/register",
+      element: <RegisterPage />,
     },
   ]);
   return (
