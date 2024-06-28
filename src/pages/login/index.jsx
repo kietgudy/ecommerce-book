@@ -3,10 +3,15 @@ import { Button, Divider, Form, Input, message, notification } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import { callLogin } from '../../services/api';
 import './login.scss'
+import { LockFilled } from '@ant-design/icons';
+import { useDispatch } from 'react-redux';
+import { doLoginAction } from '../../redux/account/accountSlice';
 
 const LoginPage = () => {
   const navigate= useNavigate();
   const [isSubmit, setIsSubmit] = useState(false);
+
+  const dispatch = useDispatch()
 
   const onFinish =  async (values) => {
     const {username, password} = values;
@@ -14,7 +19,8 @@ const LoginPage = () => {
     const res = await callLogin(username, password);
     setIsSubmit(false);
     if(res?.data) {
-      localStorage.setItem('access_token', res.data.access_token)
+      localStorage.setItem('access_token', res.data.access_token);
+      dispatch(doLoginAction(res.data.user))
       message.success("Đăng nhập tài khoản thành công!")
       navigate("/")
     } else {
@@ -31,6 +37,9 @@ const LoginPage = () => {
     <div className="register-page">
       <section className="wrapper">
         <div className="heading">
+          <span style= {{fontSize: "25px", color: "#0278cf"}}>
+          <LockFilled  />
+          </span>
           <h2 className="text text-large">Đăng Nhập Tài Khoản</h2>
           <Divider />
         </div>

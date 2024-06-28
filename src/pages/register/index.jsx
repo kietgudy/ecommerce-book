@@ -3,6 +3,7 @@ import './register.scss';
 import { Button, Divider, Form, Input, message, notification } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import { callRegister } from '../../services/api';
+import { LockFilled } from '@ant-design/icons';
 
 const RegisterPage = () => {
   const navigate = useNavigate()
@@ -30,6 +31,9 @@ const RegisterPage = () => {
     <div className="register-page">
       <section className="wrapper">
         <div className="heading">
+        <span style= {{fontSize: "25px", color: "#0278cf"}}>
+          <LockFilled />
+          </span>
           <h2 className="text text-large">Đăng Ký Tài Khoản</h2>
           <Divider />
         </div>

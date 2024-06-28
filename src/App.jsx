@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import LoginPage from "./pages/login";
 import './App.css';
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
@@ -7,6 +7,9 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./components/Home";
 import RegisterPage from "./pages/register";
+import { callFetchAccount } from "./services/api";
+import { useDispatch } from "react-redux";
+import { doGetInfoAccount } from "./redux/account/accountSlice";
 
 const Layout = () => {
   return <div className="layout">
@@ -16,7 +19,19 @@ const Layout = () => {
   </div>;
 };
 
+//Lay data user tu api de gui den redux
 export default function App() {
+  const dispatch = useDispatch();
+  const getAccount = async () => {
+    const res = await callFetchAccount();
+    if(res && res.data) {
+      dispatch(doGetInfoAccount(res.data))
+    }
+  }
+  useEffect(() => {
+    getAccount();
+  }, [])
+
   const router = createBrowserRouter([
     {
       path: "/",
