@@ -1,16 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './register.scss';
-import { Button, Divider, Form, Input } from 'antd';
-import { Link } from 'react-router-dom';
+import { Button, Divider, Form, Input, message, notification } from 'antd';
+import { Link, useNavigate } from 'react-router-dom';
+import { callRegister } from '../../services/api';
 
 const RegisterPage = () => {
-  const onFinish = (values) => {
-    console.log('Success:', values);
+  const navigate = useNavigate()
+  const [isSubmit, setIsSubmit] = useState(false)
+
+  const onFinish =  async (values) => {
+    const { fullName, email, password, phone} = values
+    setIsSubmit(true);
+    const res = await callRegister(fullName, email, password, phone);
+    setIsSubmit(false);
+    if (res?.data?._id) {
+      message.success("Đăng ký tài khoản thành công!")
+      navigate('/login')
+    } else (
+      notification.error({
+        message: "Có lỗi xảy ra",
+        description: res.message && res.message.length > 0 ? res.message[0] : res.message,
+        duration: 5,
+      })
+    )
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
 
   return (
     <div className="register-page">
@@ -26,7 +40,6 @@ const RegisterPage = () => {
           style={{ maxWidth: 600 }}
           initialValues={{ remember: true }}
           onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
           <Form.Item
@@ -62,7 +75,7 @@ const RegisterPage = () => {
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit">
+            <Button block type="primary" htmlType="submit" loading={isSubmit}>
               Đăng ký
             </Button>
           </Form.Item>
