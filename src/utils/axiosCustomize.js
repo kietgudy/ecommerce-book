@@ -3,6 +3,7 @@ import axios from "axios";
 const baseURL = import.meta.env.VITE_BACKEND_URL;
 const instance = axios.create({
   baseURL: baseURL,
+  withCredentials: true, // set refesh token cookie(axios)
   });
   instance.interceptors.request.use(function (config) {
   return config;

@@ -1,12 +1,29 @@
 import React, { useState } from 'react';
 import { Button, Divider, Form, Input, message, notification } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
-import { callRegister } from '../../services/api';
+import { callLogin } from '../../services/api';
+import './login.scss'
 
 const LoginPage = () => {
-  
+  const navigate= useNavigate();
+  const [isSubmit, setIsSubmit] = useState(false);
+
   const onFinish =  async (values) => {
-    
+    const {username, password} = values;
+    setIsSubmit(true);
+    const res = await callLogin(username, password);
+    setIsSubmit(false);
+    if(res?.data) {
+      localStorage.setItem('access_token', res.data.access_token)
+      message.success("Đăng nhập tài khoản thành công!")
+      navigate("/")
+    } else {
+      notification.error({
+        message: "Có lỗi xảy ra",
+        description: res.message && Array.isArray(res.message) ? res.message[0] : res.message,
+        duration: 5,
+      })
+    }
   };
 
 
@@ -44,7 +61,7 @@ const LoginPage = () => {
           </Form.Item>
           
           <Form.Item>
-            <Button block type="primary" htmlType="submit">
+            <Button block type="primary" htmlType="submit" loading={isSubmit}>
               Đăng nhập
             </Button>
           </Form.Item>
@@ -52,7 +69,7 @@ const LoginPage = () => {
           <p className="text text-normal">
             Chưa có tài khoản?
             <span>
-              <Link to='/login'> Đăng Ký </Link>
+              <Link to='/register'> Đăng Ký </Link>
             </span>
           </p>
         </Form>
