@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import LoginPage from "./pages/login";
-import "./App.css";
+import "./styles/reset.scss";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import ContactPage from "./pages/contact";
 import Header from "./components/Header";
