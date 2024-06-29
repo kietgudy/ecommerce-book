@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import LoginPage from "./pages/login";
-import './App.css';
+import "./App.css";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import ContactPage from "./pages/contact";
 import Header from "./components/Header";
@@ -18,40 +18,41 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import LayoutAdmin from "./components/Admin/LayoutAdmin";
 
 const Layout = () => {
-  return <div className="layout">
-  <Header/>
-  <Outlet/>
-  <Footer/>
-  </div>;
+  return (
+    <div className="layout">
+      <Header />
+      <Outlet />
+      <Footer />
+    </div>
+  );
 };
-
-
 
 //Lay data user tu api de gui den redux
 export default function App() {
   const dispatch = useDispatch();
-  const isLoading = useSelector(state => state.account.isLoading);
+  const isLoading = useSelector((state) => state.account.isLoading);
 
   const getAccount = async () => {
-    if (window.location.pathname === '/login' 
-      || window.location.pathname === 'register'
-     ) 
+    if (
+      window.location.pathname === "/login" ||
+      window.location.pathname === "register"
+    )
       return;
 
     const res = await callFetchAccount();
-    if(res && res.data) {
-      dispatch(doGetAccountAction(res.data))
+    if (res && res.data) {
+      dispatch(doGetAccountAction(res.data));
     }
-  }
+  };
   useEffect(() => {
     getAccount();
-  }, [])
+  }, []);
 
   const router = createBrowserRouter([
     {
       path: "/",
       element: <Layout />,
-      errorElement: <NotFoundPage/>,
+      errorElement: <NotFoundPage />,
       children: [
         { index: true, element: <Home /> },
         {
@@ -67,16 +68,23 @@ export default function App() {
     {
       path: "/admin",
       element: <LayoutAdmin />,
-      errorElement: <NotFoundPage/>,
+      errorElement: <NotFoundPage />,
       children: [
-        { index: true, element: 
-        <ProtectedRoute>
-          <AdminPage />
-        </ProtectedRoute>
-      },
         {
-          path: "contact",
+          index: true,
+          element: (
+            <ProtectedRoute>
+              <AdminPage />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "user",
           element: <ContactPage />,
+        },
+        {
+          path: "book",
+          element: <BookPage />,
         },
       ],
     },
@@ -91,14 +99,14 @@ export default function App() {
   ]);
   return (
     <>
-    {isLoading === false 
-      || window.location.pathname === '/login' 
-      || window.location.pathname === '/register' 
-      || window.location.pathname === '/' 
-      ? 
-      <RouterProvider router={router} />
-      : <Loading/>
-    }
+      {isLoading === false ||
+      window.location.pathname === "/login" ||
+      window.location.pathname === "/register" ||
+      window.location.pathname === "/" ? (
+        <RouterProvider router={router} />
+      ) : (
+        <Loading />
+      )}
     </>
   );
 }

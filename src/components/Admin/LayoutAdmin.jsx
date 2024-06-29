@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import {
   AppstoreOutlined,
-  ExceptionOutlined,
   HeartTwoTone,
   TeamOutlined,
-  UserOutlined,
-  DollarCircleOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   DownOutlined,
+  FileDoneOutlined,
+  ReadOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu, Dropdown, Space, message } from "antd";
 import { Outlet, useNavigate } from "react-router-dom";
@@ -29,7 +28,7 @@ const items = [
   {
     label: <span>Manage Users</span>,
     // key: 'user',
-    icon: <UserOutlined />,
+    icon: <TeamOutlined />,
     children: [
       {
         label: <Link to="/admin/user">CRUD</Link>,
@@ -46,15 +45,14 @@ const items = [
   {
     label: <Link to="/admin/book">Manage Books</Link>,
     key: "book",
-    icon: <ExceptionOutlined />,
+    icon: <ReadOutlined />,
   },
   {
     label: <Link to="/admin/order">Manage Orders</Link>,
     key: "order",
-    icon: <DollarCircleOutlined />,
+    icon: <FileDoneOutlined />,
   },
 ];
-
 
 const LayoutAdmin = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -62,7 +60,7 @@ const LayoutAdmin = () => {
   const user = useSelector((state) => state.account.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
+
   const handleLogout = async () => {
     const res = await callLogout();
     if (res && res.data) {
@@ -94,7 +92,7 @@ const LayoutAdmin = () => {
         collapsed={collapsed}
         onCollapse={(value) => setCollapsed(value)}
       >
-        <div style={{margin: 16, textAlign: "center" }}>ADMIN</div>
+        <div style={{ margin: 16, textAlign: "center" }}>ADMIN</div>
         <Menu
           defaultSelectedKeys={[activeMenu]}
           mode="inline"
