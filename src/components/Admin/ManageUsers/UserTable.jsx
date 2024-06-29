@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Table, Row, Col, Card, Button } from "antd";
 import { callFetchListUser } from "../../../services/api";
 import InputSearch from "./InputSearch.jsx";
-import { DeleteOutlined, ReloadOutlined } from "@ant-design/icons";
+import { DeleteFilled, EyeFilled, ReloadOutlined } from "@ant-design/icons";
+import UserViewDetail from "./UserViewDetail.jsx";
 
 const UserTable = () => {
   const [listUser, setListUser] = useState([]);
@@ -13,6 +14,8 @@ const UserTable = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [filter, setFilter] = useState("");
   const [sortQuery, setSortQuery] = useState("");
+  const [dataViewDetail, setDataViewDetail] = useState(null);
+  const [openViewDetail, setOpenViewDetail] = useState(false);
 
   useEffect(() => {
     fetchUser();
@@ -39,6 +42,26 @@ const UserTable = () => {
     {
       title: "ID",
       dataIndex: "_id",
+      render: (text, record, index) => {
+        return (
+          <div
+            onClick={() => {
+              setDataViewDetail(record); //data row
+              setOpenViewDetail(true);
+            }}
+            style={{ cursor: "pointer" }}
+          >
+            <EyeFilled
+              style={{
+                fontSize: "17px",
+                marginRight: "10px",
+                marginTop: "3px",
+              }}
+            />
+            <a>{record._id}</a>
+          </div>
+        );
+      },
     },
     {
       title: "Tên người dùng",
@@ -60,7 +83,9 @@ const UserTable = () => {
       render: (text, record, index) => {
         return (
           <>
-            <DeleteOutlined style={{ fontSize: "17px", color: "red" }} />
+            <DeleteFilled
+              style={{ fontSize: "17px", color: "red", cursor: "pointer" }}
+            />
           </>
         );
       },
@@ -126,6 +151,12 @@ const UserTable = () => {
           </Card>
         </Col>
       </Row>
+      <UserViewDetail
+        openViewDetail={openViewDetail}
+        setOpenViewDetail={setOpenViewDetail}
+        dataViewDetail={dataViewDetail}
+        setDataViewDetail={setDataViewDetail}
+      />
     </>
   );
 };
