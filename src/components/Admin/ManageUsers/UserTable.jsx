@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Table, Row, Col } from "antd";
+import { Table, Row, Col, Card, Button } from "antd";
 import { callFetchListUser } from "../../../services/api";
 import InputSearch from "./InputSearch.jsx";
+import { DeleteOutlined, ReloadOutlined } from "@ant-design/icons";
 
 const UserTable = () => {
   const [listUser, setListUser] = useState([]);
@@ -54,7 +55,7 @@ const UserTable = () => {
       render: (text, record, index) => {
         return (
           <>
-            <button>Delete</button>
+            <DeleteOutlined style={{fontSize: "17px", color: "red"}} />
           </>
         );
       },
@@ -82,6 +83,7 @@ const UserTable = () => {
           <InputSearch handleSearch={handleSearch} />
         </Col>
         <Col span={24}>
+        <Card title="QUẢN LÝ NGƯỜI DÙNG" extra={<Button><ReloadOutlined style={{fontSize: "17px"}} /></Button>}>
           <Table
             columns={columns}
             loading={isLoading}
@@ -95,6 +97,7 @@ const UserTable = () => {
               total: total,
             }}
           />
+          </Card>
         </Col>
       </Row>
     </>
