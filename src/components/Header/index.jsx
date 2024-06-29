@@ -11,6 +11,7 @@ import "./Header.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { callLogout } from "../../services/api";
 import { useNavigate } from "react-router-dom";
+import { doLogoutAction } from "../../redux/account/accountSlice";
 
 const Header = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -23,7 +24,7 @@ const Header = () => {
   const handleLogout = async () => {
     const res = await callLogout();
     if (res && res.data) {
-      dispatch(doLogoutAction());
+      dispatch(doLogoutAction()); //update redux reset data user
       message.success("Đăng xuất thành công");
       navigate("/");
     }

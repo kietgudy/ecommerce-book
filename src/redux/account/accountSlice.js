@@ -1,8 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit';
-
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isAuthenticated: false,
+  isLoading: true,
   user: {
     email: "",
     phone: "",
@@ -11,24 +11,38 @@ const initialState = {
     avatar: "",
     id: "",
   },
-  status: 'idle',
+  status: "idle",
 };
 export const accountSlice = createSlice({
-  name: 'account',
+  name: "account",
   initialState,
   reducers: {
     doLoginAction: (state, action) => {
-        state.isAuthenticated = true;
-        state.user = action.payload;
+      state.isAuthenticated = true;
+      state.isLoading = false;
+      state.user = action.payload;
     },
     doGetAccountAction: (state, action) => {
-        state.isAuthenticated = true;
-        state.user = action.payload.user;
+      state.isAuthenticated = true;
+      state.isLoading = false;
+      state.user = action.payload.user;
+    },
+    doLogoutAction: (state, action) => {
+      localStorage.removeItem("access_token");
+      state.isAuthenticated = false;
+      state.user = {
+        email: "",
+        phone: "",
+        fullName: "",
+        role: "",
+        avatar: "",
+        id: "",
+      };
     },
   },
 });
 
-export const { doLoginAction, doGetAccountAction } = accountSlice.actions;
-
+export const { doLoginAction, doGetAccountAction, doLogoutAction } =
+  accountSlice.actions;
 
 export default accountSlice.reducer;

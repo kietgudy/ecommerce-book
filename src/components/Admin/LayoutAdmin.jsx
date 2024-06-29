@@ -15,6 +15,8 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "./LayoutAdmin.scss";
 import { useDispatch, useSelector } from "react-redux";
+import { callLogout } from "../../services/api";
+import { doLogoutAction } from "../../redux/account/accountSlice";
 
 const { Content, Footer, Sider } = Layout;
 
@@ -53,27 +55,36 @@ const items = [
   },
 ];
 
-const itemsDropdown = [
-  {
-    label: <label style={{ cursor: "pointer" }}>Quản lý tài khoản</label>,
-    key: "account",
-  },
-  {
-    label: (
-      <label style={{ cursor: "pointer" }} >
-        Đăng xuất
-      </label>
-    ),
-    key: "logout",
-  },
-];
 
 const LayoutAdmin = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [activeMenu, setActiveMenu] = useState("dashboard");
   const user = useSelector((state) => state.account.user);
-
-
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  
+  const handleLogout = async () => {
+    const res = await callLogout();
+    if (res && res.data) {
+      dispatch(doLogoutAction());
+      message.success("Đăng xuất thành công");
+      navigate("/");
+    }
+  };
+  const itemsDropdown = [
+    {
+      label: <label style={{ cursor: "pointer" }}>Quản lý tài khoản</label>,
+      key: "account",
+    },
+    {
+      label: (
+        <label style={{ cursor: "pointer" }} onClick={() => handleLogout()}>
+          Đăng xuất
+        </label>
+      ),
+      key: "logout",
+    },
+  ];
 
   return (
     <Layout style={{ minHeight: "100vh" }} className="layout">
@@ -83,7 +94,7 @@ const LayoutAdmin = () => {
         collapsed={collapsed}
         onCollapse={(value) => setCollapsed(value)}
       >
-        <div style={{ height: 32, margin: 16, textAlign: "center" }}>Admin</div>
+        <div style={{margin: 16, textAlign: "center" }}>ADMIN</div>
         <Menu
           defaultSelectedKeys={[activeMenu]}
           mode="inline"
