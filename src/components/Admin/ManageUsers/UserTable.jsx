@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Table, Row, Col, Card, Button } from "antd";
+import { Table, Row, Col, Card } from "antd";
 import { callFetchListUser } from "../../../services/api";
 import InputSearch from "./InputSearch.jsx";
 import { DeleteFilled, EyeFilled, ReloadOutlined } from "@ant-design/icons";
@@ -8,7 +8,7 @@ import UserViewDetail from "./UserViewDetail.jsx";
 const UserTable = () => {
   const [listUser, setListUser] = useState([]);
   const [current, setCurrent] = useState(1);
-  const [pageSize, setPageSize] = useState(2);
+  const [pageSize, setPageSize] = useState(5);
   const [total, setTotal] = useState(0);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -21,7 +21,7 @@ const UserTable = () => {
     fetchUser();
   }, [current, pageSize, filter, sortQuery]);
 
-  const fetchUser = async () => {
+  const fetchUser = async (filter) => {
     setIsLoading(true);
     let query = `current=${current}&pageSize=${pageSize}`;
     if (filter) {
@@ -123,16 +123,14 @@ const UserTable = () => {
           <Card
             title="QUẢN LÝ NGƯỜI DÙNG"
             extra={
-              <Button>
-                <ReloadOutlined
-                  onClick={() => {
-                    setFilter("");
-                    setSortQuery("");
-                  }}
-                  type="ghost"
-                  style={{ fontSize: "17px" }}
-                />
-              </Button>
+              <ReloadOutlined
+                onClick={() => {
+                  setFilter(null);
+                  setSortQuery("");
+                }}
+                type="ghost"
+                style={{ fontSize: "17px" }}
+              />
             }
           >
             <Table
