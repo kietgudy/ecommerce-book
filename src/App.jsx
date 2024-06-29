@@ -9,7 +9,7 @@ import Home from "./components/Home";
 import RegisterPage from "./pages/register";
 import { callFetchAccount } from "./services/api";
 import { useDispatch, useSelector } from "react-redux";
-import { doGetInfoAccount } from "./redux/account/accountSlice";
+import { doGetAccountAction } from "./redux/account/accountSlice";
 import Loading from "./common/Loading";
 import NotFoundPage from "./pages/notfound";
 import BookPage from "./pages/book";
@@ -44,13 +44,12 @@ export default function App() {
   const getAccount = async () => {
     if (window.location.pathname === '/login' 
       || window.location.pathname === 'register'
-      || window.location.pathname === '/'
      ) 
       return;
 
     const res = await callFetchAccount();
     if(res && res.data) {
-      dispatch(doGetInfoAccount(res.data))
+      dispatch(doGetAccountAction(res.data))
     }
   }
   useEffect(() => {

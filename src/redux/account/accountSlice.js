@@ -21,14 +21,14 @@ export const accountSlice = createSlice({
         state.isAuthenticated = true;
         state.user = action.payload.user;
     },
-    doGetInfoAccount: (state, action) => {
+    doGetAccountAction: (state, action) => {
         state.isAuthenticated = true;
         state.user = action.payload.user;
     },
   },
 });
 
-export const { doLoginAction, doGetInfoAccount } = accountSlice.actions;
+export const { doLoginAction, doGetAccountAction } = accountSlice.actions;
 
 
 export default accountSlice.reducer;
