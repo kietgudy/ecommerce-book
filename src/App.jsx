@@ -15,6 +15,7 @@ import NotFoundPage from "./pages/notfound";
 import BookPage from "./pages/book";
 import AdminPage from "./pages/admin";
 import ProtectedRoute from "./components/ProtectedRoute";
+import LayoutAdmin from "./components/Admin/LayoutAdmin";
 
 const Layout = () => {
   return <div className="layout">
@@ -23,17 +24,7 @@ const Layout = () => {
   <Footer/>
   </div>;
 };
-const LayoutAdmin = () => {
-  const isAdminRoute = window.location.pathname.startsWith("/admin");
-  const user = useSelector(state => state.account.user);
-  const userRole = user.role;
 
-  return <div className="layout">
-      {isAdminRoute && userRole === 'ADMIN' && <Header/>}
-        <Outlet/>
-      {isAdminRoute && userRole === 'ADMIN' && <Footer/>}
-  </div>;
-};
 
 
 //Lay data user tu api de gui den redux

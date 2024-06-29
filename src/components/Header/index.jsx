@@ -8,12 +8,26 @@ import {
 } from "@ant-design/icons";
 import { Dropdown, Space } from "antd";
 import "./Header.scss";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { callLogout } from "../../services/api";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
   const user = useSelector((state) => state.account.user);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleLogout = async () => {
+    const res = await callLogout();
+    if (res && res.data) {
+      dispatch(doLogoutAction());
+      message.success("Đăng xuất thành công");
+      navigate("/");
+    }
+  };
 
   const items = [
     {
@@ -21,7 +35,11 @@ const Header = () => {
       key: "account",
     },
     {
-      label: <label style={{ cursor: "pointer" }}>Đăng xuất</label>,
+      label: (
+        <label style={{ cursor: "pointer" }} onClick={() => handleLogout()}>
+          Đăng xuất
+        </label>
+      ),
       key: "logout",
     },
   ];
@@ -39,7 +57,11 @@ const Header = () => {
               ☰
             </div>
             <div className="page-header__logo">
-              <img src="./logo.jpg" alt="logo shop" style={{ height: "95px" }} />
+              <img
+                src="./logo.jpg"
+                alt="logo shop"
+                style={{ height: "95px" }}
+              />
             </div>
             <div className="page-header__search">
               <SearchOutlined
@@ -67,7 +89,7 @@ const Header = () => {
               </div>
               <div className="navigation__item mobile">
                 {!isAuthenticated ? (
-                  <span>Tài Khoản</span>
+                  <span onClick={() => navigate('/login')}>Tài Khoản</span>
                 ) : (
                   <Dropdown menu={{ items }} trigger={["click"]}>
                     <a onClick={(e) => e.preventDefault()}>
@@ -80,7 +102,7 @@ const Header = () => {
                 )}
                 <div className="navigation__item">
                   <Badge count={5} size={"small"}>
-                    <ShoppingCartOutlined style={{fontSize: "25px"}} />
+                    <ShoppingCartOutlined style={{ fontSize: "25px" }} />
                   </Badge>
                 </div>
               </div>
