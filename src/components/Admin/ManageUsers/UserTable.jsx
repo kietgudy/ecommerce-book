@@ -11,16 +11,21 @@ const UserTable = () => {
   const [total, setTotal] = useState(0);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [filter, setFilter] = useState("");
+  const [sortQuery, setSortQuery] = useState("");
 
   useEffect(() => {
     fetchUser();
-  }, [current, pageSize]);
+  }, [current, pageSize, filter, sortQuery]);
 
-  const fetchUser = async (searchFilter) => {
+  const fetchUser = async () => {
     setIsLoading(true);
     let query = `current=${current}&pageSize=${pageSize}`;
-    if (searchFilter) {
-      query += `&${searchFilter}`;
+    if (filter) {
+      query += `&${filter}`;
+    }
+    if (sortQuery) {
+      query += `&${sortQuery}`;
     }
     const res = await callFetchListUser(query);
     if (res && res.data) {
@@ -55,7 +60,7 @@ const UserTable = () => {
       render: (text, record, index) => {
         return (
           <>
-            <DeleteOutlined style={{fontSize: "17px", color: "red"}} />
+            <DeleteOutlined style={{ fontSize: "17px", color: "red" }} />
           </>
         );
       },
@@ -70,6 +75,13 @@ const UserTable = () => {
       setPageSize(pagination.pageSize);
       setCurrent(1);
     }
+    if (sorter && sorter.field) {
+      const q =
+        sorter.order === "ascend"
+          ? `sort=${sorter.field}`
+          : `sort=-${sorter.field}`;
+      setSortQuery(q);
+    }
   };
 
   const handleSearch = (query) => {
@@ -83,20 +95,34 @@ const UserTable = () => {
           <InputSearch handleSearch={handleSearch} />
         </Col>
         <Col span={24}>
-        <Card title="QUẢN LÝ NGƯỜI DÙNG" extra={<Button><ReloadOutlined style={{fontSize: "17px"}} /></Button>}>
-          <Table
-            columns={columns}
-            loading={isLoading}
-            dataSource={listUser}
-            onChange={onChange}
-            rowKey="_id"
-            pagination={{
-              current: current,
-              pageSize: pageSize,
-              showSizeChanger: true,
-              total: total,
-            }}
-          />
+          <Card
+            title="QUẢN LÝ NGƯỜI DÙNG"
+            extra={
+              <Button>
+                <ReloadOutlined
+                  onClick={() => {
+                    setFilter("");
+                    setSortQuery("");
+                  }}
+                  type="ghost"
+                  style={{ fontSize: "17px" }}
+                />
+              </Button>
+            }
+          >
+            <Table
+              columns={columns}
+              loading={isLoading}
+              dataSource={listUser}
+              onChange={onChange}
+              rowKey="_id"
+              pagination={{
+                current: current,
+                pageSize: pageSize,
+                showSizeChanger: true,
+                total: total,
+              }}
+            />
           </Card>
         </Col>
       </Row>

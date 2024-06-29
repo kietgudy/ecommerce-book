@@ -21,12 +21,12 @@ const { Content, Footer, Sider } = Layout;
 
 const items = [
   {
-    label: <Link to="/admin">Thống kê</Link>,
+    label: <Link to="/admin">Dashboard</Link>,
     key: "dashboard",
     icon: <AppstoreOutlined />,
   },
   {
-    label: <span>Quản lý người dùng</span>,
+    label: <span>Manage Users</span>,
     // key: 'user',
     icon: <TeamOutlined />,
     children: [
@@ -43,12 +43,12 @@ const items = [
     ],
   },
   {
-    label: <Link to="/admin/book">Quản lý sách</Link>,
+    label: <Link to="/admin/book">Manage Books</Link>,
     key: "book",
     icon: <ReadOutlined />,
   },
   {
-    label: <Link to="/admin/order">Quản lý đơn hàng</Link>,
+    label: <Link to="/admin/order">Manage Orders</Link>,
     key: "order",
     icon: <FileDoneOutlined />,
   },
