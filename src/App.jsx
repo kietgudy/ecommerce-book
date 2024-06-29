@@ -16,6 +16,7 @@ import BookPage from "./pages/book";
 import AdminPage from "./pages/admin";
 import ProtectedRoute from "./components/ProtectedRoute";
 import LayoutAdmin from "./components/Admin/LayoutAdmin";
+import UserTable from "./components/Admin/ManageUsers/UserTable";
 
 const Layout = () => {
   return (
@@ -80,7 +81,7 @@ export default function App() {
         },
         {
           path: "user",
-          element: <ContactPage />,
+          element: <UserTable />,
         },
         {
           path: "book",
