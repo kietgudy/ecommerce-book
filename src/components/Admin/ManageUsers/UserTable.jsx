@@ -24,6 +24,8 @@ import * as XLSX from "xlsx";
 import UserViewDetail from "./UserViewDetail.jsx";
 import UserModalCreate from "./UserModalCreate.jsx";
 import UserModalUpdate from "./UserModalUpdate.jsx";
+import moment from "moment/moment";
+
 
 const UserTable = () => {
   const [listUser, setListUser] = useState([]);
@@ -32,7 +34,7 @@ const UserTable = () => {
   const [total, setTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [filter, setFilter] = useState("");
-  const [sortQuery, setSortQuery] = useState("");
+  const [sortQuery, setSortQuery] = useState("sort=-updatedAt");
   const [dataViewDetail, setDataViewDetail] = useState(null);
   const [openViewDetail, setOpenViewDetail] = useState(false);
   const [openModalCreate, setOpenModalCreate] = useState(false);
@@ -99,6 +101,12 @@ const UserTable = () => {
       title: "Số điện thoại",
       dataIndex: "phone",
       sorter: true,
+    },
+    {
+      title: "Ngày chỉnh sửa",
+      dataIndex: "updatedAt",
+      sorter: true,
+      render: (text) => moment(text).format("DD-MM-YYYY HH:mm:ss"),
     },
     {
       title: "Action",

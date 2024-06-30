@@ -21,6 +21,8 @@ import {
 } from "@ant-design/icons";
 import * as XLSX from "xlsx";
 import { callFetchListBook } from "../../../services/api.js";
+import moment from "moment/moment";
+
 
 const BookTable = () => {
   const [listBook, setListBook] = useState([]);
@@ -29,7 +31,7 @@ const BookTable = () => {
   const [total, setTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [filter, setFilter] = useState("");
-  const [sortQuery, setSortQuery] = useState("sort=-createdAt");
+  const [sortQuery, setSortQuery] = useState("sort=-updatedAt");
 
   useEffect(() => {
     fetchBook();
@@ -50,6 +52,10 @@ const BookTable = () => {
       setTotal(res.data.meta.total);
     }
     setIsLoading(false);
+  };
+
+  const formatVND = (value) => {
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " đ";
   };
 
   const columns = [
@@ -91,11 +97,13 @@ const BookTable = () => {
       title: "Giá tiền",
       dataIndex: "price",
       sorter: true,
+      render: (text) => formatVND(text),
     },
     {
-      title: "Ngày tạo",
-      dataIndex: "createdAt",
+      title: "Ngày chỉnh sửa",
+      dataIndex: "updatedAt",
       sorter: true,
+      render: (text) => moment(text).format("DD-MM-YYYY HH:mm:ss"),
     },
     {
       title: "Action",
@@ -196,6 +204,13 @@ const BookTable = () => {
                 pageSize: pageSize,
                 showSizeChanger: true,
                 total: total,
+                showTotal: (total, range) => {
+                    return (
+                      <div>
+                        {range[0]}-{range[1]} trên {total} rows
+                      </div>
+                    );
+                  },
               }}
             />
           </Card>

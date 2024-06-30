@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Badge, Button, Descriptions, Drawer } from "antd";
+import { Badge, Descriptions, Drawer } from "antd";
 import moment from "moment/moment";
 
 const UserViewDetail = (props) => {
