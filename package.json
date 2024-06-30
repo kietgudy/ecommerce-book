@@ -21,6 +21,7 @@
     "react-router-dom": "^6.24.0",
     "react-spinners": "^0.14.1",
     "sass": "^1.77.6",
+    "uuid": "^10.0.0",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
