@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Table, Row, Col, Card } from "antd";
+import { Table, Row, Col, Card, Button } from "antd";
 import { callFetchListUser } from "../../../services/api";
 import InputSearch from "./InputSearch.jsx";
-import { DeleteFilled, EyeFilled, ReloadOutlined } from "@ant-design/icons";
+import {
+  CloudUploadOutlined,
+  DeleteFilled,
+  EyeFilled,
+  PlusCircleOutlined,
+  ReloadOutlined,
+  UploadOutlined,
+} from "@ant-design/icons";
 import UserViewDetail from "./UserViewDetail.jsx";
 
 const UserTable = () => {
@@ -122,16 +129,30 @@ const UserTable = () => {
           <Card
             title="QUẢN LÝ NGƯỜI DÙNG"
             extra={
-              <ReloadOutlined
-                onClick={() => {
-                  setFilter("");
-                  setSortQuery("");
-                  setCurrent(1);
-                  setPageSize(5);
-                }}
-                type="ghost"
-                style={{ fontSize: "17px" }}
-              />
+              <div style={{ display: "flex", gap: 15 }}>
+                <Button type="primary">
+                  Export
+                  <UploadOutlined />
+                </Button>
+                <Button type="primary">
+                  Import
+                  <CloudUploadOutlined />
+                </Button>
+                <Button type="primary">
+                  Add new
+                  <PlusCircleOutlined />
+                </Button>
+                <ReloadOutlined
+                  onClick={() => {
+                    setFilter("");
+                    setSortQuery("");
+                    setCurrent(1);
+                    setPageSize(5);
+                  }}
+                  type="ghost"
+                  style={{ fontSize: "17px" }}
+                />
+              </div>
             }
           >
             <Table
@@ -145,6 +166,13 @@ const UserTable = () => {
                 pageSize: pageSize,
                 showSizeChanger: true,
                 total: total,
+                showTotal: (total, range) => {
+                  return (
+                    <div>
+                      {range[0]}-{range[1]} trên {total} rows
+                    </div>
+                  );
+                },
               }}
             />
           </Card>
