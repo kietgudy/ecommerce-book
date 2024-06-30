@@ -30,7 +30,7 @@ import moment from "moment/moment";
 const UserTable = () => {
   const [listUser, setListUser] = useState([]);
   const [current, setCurrent] = useState(1);
-  const [pageSize, setPageSize] = useState(5);
+  const [pageSize, setPageSize] = useState(10);
   const [total, setTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [filter, setFilter] = useState("");
@@ -214,7 +214,7 @@ const UserTable = () => {
                     setFilter("");
                     setSortQuery("");
                     setCurrent(1);
-                    setPageSize(5);
+                    setPageSize(10);
                   }}
                   type="ghost"
                   style={{ fontSize: "17px" }}

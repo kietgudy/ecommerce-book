@@ -22,7 +22,7 @@ import {
 import * as XLSX from "xlsx";
 import { callFetchListBook } from "../../../services/api.js";
 import moment from "moment/moment";
-
+import BookViewDetail from "./BookViewDetail.jsx";
 
 const BookTable = () => {
   const [listBook, setListBook] = useState([]);
@@ -32,6 +32,8 @@ const BookTable = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [filter, setFilter] = useState("");
   const [sortQuery, setSortQuery] = useState("sort=-updatedAt");
+  const [dataViewDetail, setDataViewDetail] = useState(null);
+  const [openViewDetail, setOpenViewDetail] = useState(false);
 
   useEffect(() => {
     fetchBook();
@@ -65,7 +67,13 @@ const BookTable = () => {
       dataIndex: "_id",
       render: (text, record, index) => {
         return (
-          <div onClick={() => {}} style={{ cursor: "pointer" }}>
+          <div
+            onClick={() => {
+              setDataViewDetail(record); //data row
+              setOpenViewDetail(true);
+            }}
+            style={{ cursor: "pointer" }}
+          >
             <EyeFilled
               style={{
                 fontSize: "17px",
@@ -95,6 +103,7 @@ const BookTable = () => {
     },
     {
       title: "Giá tiền",
+      width: 120,
       dataIndex: "price",
       sorter: true,
       render: (text) => formatVND(text),
@@ -205,17 +214,23 @@ const BookTable = () => {
                 showSizeChanger: true,
                 total: total,
                 showTotal: (total, range) => {
-                    return (
-                      <div>
-                        {range[0]}-{range[1]} trên {total} rows
-                      </div>
-                    );
-                  },
+                  return (
+                    <div>
+                      {range[0]}-{range[1]} trên {total} rows
+                    </div>
+                  );
+                },
               }}
             />
           </Card>
         </Col>
       </Row>
+      <BookViewDetail
+        openViewDetail={openViewDetail}
+        setOpenViewDetail={setOpenViewDetail}
+        dataViewDetail={dataViewDetail}
+        setDataViewDetail={setDataViewDetail}
+      />
     </>
   );
 };
