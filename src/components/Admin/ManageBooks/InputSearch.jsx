@@ -14,14 +14,14 @@ const InputSearch = (props) => {
 
   const onFinish = (values) => {
     let query = "";
-    if (values.fullName) {
-      query += `&fullName=/${values.fullName}/i`;
+    if (values.mainText) {
+      query += `&mainText=/${values.mainText}/i`;
     }
-    if (values.email) {
-      query += `&email=/${values.email}/i`;
+    if (values.author) {
+      query += `&author=/${values.author}/i`;
     }
-    if (values.phone) {
-      query += `&phone=/${values.phone}/i`;
+    if (values.category) {
+      query += `&category=/${values.category}/i`;
     }
     if (query) {
       props.handleSearch(query);
@@ -37,23 +37,23 @@ const InputSearch = (props) => {
     >
       <Row gutter={24}>
         <Col span={8}>
-          <Form.Item labelCol={{ span: 24 }} name={`fullName`} label={`Name`}>
-            <Input placeholder="Tìm kiếm theo tên" />
+          <Form.Item labelCol={{ span: 24 }} name={`mainText`} label={`Tên sách`}>
+            <Input placeholder="Tìm kiếm theo tên sách" />
           </Form.Item>
         </Col>
         <Col span={8}>
-          <Form.Item labelCol={{ span: 24 }} name={`email`} label={`Email`}>
-            <Input placeholder="Tìm kiếm theo email" />
+          <Form.Item labelCol={{ span: 24 }} name={`author`} label={`Tác giả`}>
+            <Input placeholder="Tìm kiếm theo tác giả" />
           </Form.Item>
         </Col>
 
         <Col span={8}>
           <Form.Item
             labelCol={{ span: 24 }}
-            name={`phone`}
-            label={`Số điện thoại`}
+            name={`category`}
+            label={`Thể loại`}
           >
-            <Input placeholder="Tìm kiếm theo số điện thoại" />
+            <Input placeholder="Tìm kiếm theo danh mục" />
           </Form.Item>
         </Col>
       </Row>

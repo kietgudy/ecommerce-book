@@ -40,3 +40,7 @@ export const callUpdateUser = (_id, fullName,phone) => {
     phone,
   });
 };
+
+export const callFetchListBook = (query) => {
+  return axios.get(`/api/v1/book?${query}`);
+};

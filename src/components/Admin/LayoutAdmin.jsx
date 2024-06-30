@@ -25,22 +25,27 @@ const items = [
     key: "dashboard",
     icon: <AppstoreOutlined />,
   },
+  // {
+  //   label: <span>Manage Users</span>,
+  //   // key: 'user',
+  //   icon: <TeamOutlined />,
+  //   children: [
+  //     {
+  //       label: <Link to="/admin/user">CRUD</Link>,
+  //       key: "crud",
+  //       icon: <TeamOutlined />,
+  //     },
+  //     {
+  //       label: "Files1",
+  //       key: "file1",
+  //       icon: <TeamOutlined />,
+  //     },
+  //   ],
+  // },
   {
-    label: <span>Manage Users</span>,
-    // key: 'user',
+    label: <Link to="/admin/user">Manage Users</Link>,
+    key: "user",
     icon: <TeamOutlined />,
-    children: [
-      {
-        label: <Link to="/admin/user">CRUD</Link>,
-        key: "crud",
-        icon: <TeamOutlined />,
-      },
-      {
-        label: "Files1",
-        key: "file1",
-        icon: <TeamOutlined />,
-      },
-    ],
   },
   {
     label: <Link to="/admin/book">Manage Books</Link>,
@@ -120,7 +125,7 @@ const LayoutAdmin = () => {
           </span>
           <Dropdown menu={{ items: itemsDropdown }} trigger={["click"]}>
             <a onClick={(e) => e.preventDefault()}>
-              <Space>
+              <Space style={{fontSize: "15px", color: "black"}}>
                 <Avatar src={urlAvatar} />
                 {user?.fullName}
                 <DownOutlined />
@@ -131,8 +136,8 @@ const LayoutAdmin = () => {
         <Content>
           <Outlet />
         </Content>
-        <Footer style={{ padding: 0 }}>
-          Shop Book &copy; Kiet - Made with <HeartTwoTone />
+        <Footer style={{ padding: 0, textAlign: "center" }}>
+          Shop Book &copy; Kiet - From with <HeartTwoTone />
         </Footer>
       </Layout>
     </Layout>
