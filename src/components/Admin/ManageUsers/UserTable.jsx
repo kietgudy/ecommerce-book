@@ -5,6 +5,7 @@ import InputSearch from "./InputSearch.jsx";
 import {
   CloudUploadOutlined,
   DeleteFilled,
+  EditFilled,
   EyeFilled,
   PlusCircleOutlined,
   ReloadOutlined,
@@ -13,6 +14,7 @@ import {
 import * as XLSX from "xlsx";
 import UserViewDetail from "./UserViewDetail.jsx";
 import UserModalCreate from "./UserModalCreate.jsx";
+import UserModalUpdate from "./UserModalUpdate.jsx";
 
 const UserTable = () => {
   const [listUser, setListUser] = useState([]);
@@ -25,6 +27,8 @@ const UserTable = () => {
   const [dataViewDetail, setDataViewDetail] = useState(null);
   const [openViewDetail, setOpenViewDetail] = useState(false);
   const [openModalCreate, setOpenModalCreate] = useState(false);
+  const [openModalUpdate, setOpenModalUpdate] = useState(false);
+  const [dataUpdate, setDataUpdate] = useState(null);
 
   useEffect(() => {
     fetchUser();
@@ -92,8 +96,20 @@ const UserTable = () => {
       render: (text, record, index) => {
         return (
           <>
+            <EditFilled
+              style={{
+                fontSize: "19px",
+                color: "green",
+                cursor: "pointer",
+                marginRight: 15,
+              }}
+              onClick={() => {
+                setOpenModalUpdate(true);
+                setDataUpdate(record);
+              }}
+            />
             <DeleteFilled
-              style={{ fontSize: "17px", color: "red", cursor: "pointer" }}
+              style={{ fontSize: "19px", color: "red", cursor: "pointer" }}
             />
           </>
         );
@@ -199,6 +215,12 @@ const UserTable = () => {
       <UserModalCreate
         openModalCreate={openModalCreate}
         setOpenModalCreate={setOpenModalCreate}
+      />
+      <UserModalUpdate
+        openModalUpdate={openModalUpdate}
+        setOpenModalUpdate={setOpenModalUpdate}
+        dataUpdate={dataUpdate}
+        setDataUpdate={setDataUpdate}
       />
     </>
   );
