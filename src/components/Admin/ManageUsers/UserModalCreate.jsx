@@ -39,7 +39,7 @@ const UserModalCreate = (props) => {
       <Divider />
       <Form
         form={form}
-        name="basic"
+        name="create"
         style={{ maxWidth: 600 }}
         onFinish={onFinish}
         autoComplete="off"

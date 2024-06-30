@@ -46,7 +46,7 @@ const UserModalUpdate = (props) => {
       <Divider />
       <Form
         form={form}
-        name="basic"
+        name="update"
         style={{ maxWidth: 600 }}
         onFinish={onFinish}
         autoComplete="off"

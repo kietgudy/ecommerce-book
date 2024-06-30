@@ -1,6 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Table, Row, Col, Card, Button } from "antd";
-import { callFetchListUser } from "../../../services/api";
+import {
+  Table,
+  Row,
+  Col,
+  Card,
+  Button,
+  Popconfirm,
+  message,
+  notification,
+} from "antd";
+import { callDeleteUser, callFetchListUser } from "../../../services/api";
 import InputSearch from "./InputSearch.jsx";
 import {
   CloudUploadOutlined,
@@ -99,7 +108,7 @@ const UserTable = () => {
             <EditFilled
               style={{
                 fontSize: "19px",
-                color: "green",
+                color: "#00cd00",
                 cursor: "pointer",
                 marginRight: 15,
               }}
@@ -108,9 +117,18 @@ const UserTable = () => {
                 setDataUpdate(record);
               }}
             />
-            <DeleteFilled
-              style={{ fontSize: "19px", color: "red", cursor: "pointer" }}
-            />
+            <Popconfirm
+              placement="left"
+              title={"Xác nhận xóa người dùng"}
+              description={"Bạn có chắc chắn muốn xóa người dùng này?"}
+              onConfirm={() => handleDeleteUser(record._id)}
+              okText="Xác nhận"
+              cancelText="Hủy"
+            >
+              <DeleteFilled
+                style={{ fontSize: "19px", color: "red", cursor: "pointer" }}
+              />
+            </Popconfirm>
           </>
         );
       },
@@ -144,6 +162,19 @@ const UserTable = () => {
       const workbook = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
       XLSX.writeFile(workbook, "ExportUser.csv");
+    }
+  };
+
+  const handleDeleteUser = async (userId) => {
+    const res = await callDeleteUser(userId);
+    if (res && res.data) {
+      message.success("Xóa người dùng thành công!");
+      fetchUser();
+    } else {
+      notification.error({
+        message: "Có lỗi xảy ra :(",
+        description: res.message,
+      });
     }
   };
 
@@ -216,7 +247,7 @@ const UserTable = () => {
         openModalCreate={openModalCreate}
         setOpenModalCreate={setOpenModalCreate}
         fetchUser={fetchUser}
-        setListUser={setListUser} 
+        setListUser={setListUser}
       />
       <UserModalUpdate
         openModalUpdate={openModalUpdate}
@@ -224,7 +255,7 @@ const UserTable = () => {
         dataUpdate={dataUpdate}
         setDataUpdate={setDataUpdate}
         fetchUser={fetchUser}
-        setListUser={setListUser} 
+        setListUser={setListUser}
       />
     </>
   );
