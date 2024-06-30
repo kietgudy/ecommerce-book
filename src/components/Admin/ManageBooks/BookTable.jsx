@@ -25,20 +25,24 @@ import { callFetchListBook } from "../../../services/api.js";
 const BookTable = () => {
   const [listBook, setListBook] = useState([]);
   const [current, setCurrent] = useState(1);
-  const [pageSize, setPageSize] = useState(5);
+  const [pageSize, setPageSize] = useState(10);
   const [total, setTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [filter, setFilter] = useState("");
+  const [sortQuery, setSortQuery] = useState("sort=-createdAt");
 
   useEffect(() => {
     fetchBook();
-  }, [current, pageSize, filter]);
+  }, [current, pageSize, filter, sortQuery]);
 
   const fetchBook = async () => {
     setIsLoading(true);
     let query = `current=${current}&pageSize=${pageSize}`;
     if (filter) {
       query += filter;
+    }
+    if (sortQuery) {
+      query += `&${sortQuery}`;
     }
     const res = await callFetchListBook(query);
     if (res && res.data) {
@@ -51,6 +55,7 @@ const BookTable = () => {
   const columns = [
     {
       title: "ID",
+      width: 250,
       dataIndex: "_id",
       render: (text, record, index) => {
         return (
@@ -73,13 +78,13 @@ const BookTable = () => {
       sorter: true,
     },
     {
-      title: "Thể loại",
-      dataIndex: "category",
+      title: "Tác giả",
+      dataIndex: "author",
       sorter: true,
     },
     {
-      title: "Tác giả",
-      dataIndex: "author",
+      title: "Thể loại",
+      dataIndex: "category",
       sorter: true,
     },
     {
@@ -88,39 +93,40 @@ const BookTable = () => {
       sorter: true,
     },
     {
-      title: "Ngày cập nhật",
-      dataIndex: "updatedAt",
+      title: "Ngày tạo",
+      dataIndex: "createdAt",
       sorter: true,
     },
-    // {
-    //   title: "Action",
-    //   render: (text, record, index) => {
-    //     return (
-    //       <>
-    //         <EditFilled
-    //           style={{
-    //             fontSize: "19px",
-    //             color: "#00cd00",
-    //             cursor: "pointer",
-    //             marginRight: 15,
-    //           }}
-    //           onClick={() => {}}
-    //         />
-    //         <Popconfirm
-    //           placement="left"
-    //           title={"Xác nhận xóa người dùng"}
-    //           description={"Bạn có chắc chắn muốn xóa người dùng này?"}
-    //           okText="Xác nhận"
-    //           cancelText="Hủy"
-    //         >
-    //           <DeleteFilled
-    //             style={{ fontSize: "19px", color: "red", cursor: "pointer" }}
-    //           />
-    //         </Popconfirm>
-    //       </>
-    //     );
-    //   },
-    // },
+    {
+      title: "Action",
+      width: 100,
+      render: (text, record, index) => {
+        return (
+          <>
+            <EditFilled
+              style={{
+                fontSize: "19px",
+                color: "#00cd00",
+                cursor: "pointer",
+                marginRight: 15,
+              }}
+              onClick={() => {}}
+            />
+            <Popconfirm
+              placement="left"
+              title={"Xác nhận xóa sách"}
+              description={"Bạn có chắc chắn muốn xóa sách này?"}
+              okText="Xác nhận"
+              cancelText="Hủy"
+            >
+              <DeleteFilled
+                style={{ fontSize: "19px", color: "red", cursor: "pointer" }}
+              />
+            </Popconfirm>
+          </>
+        );
+      },
+    },
   ];
 
   const onChange = (pagination, filters, sorter, extra) => {
@@ -130,6 +136,13 @@ const BookTable = () => {
     if (pagination && pagination.pageSize !== pageSize) {
       setPageSize(pagination.pageSize);
       setCurrent(1);
+    }
+    if (sorter && sorter.field) {
+      const q =
+        sorter.order === "ascend"
+          ? `sort=${sorter.field}`
+          : `sort=-${sorter.field}`;
+      setSortQuery(q);
     }
   };
   const handleSearch = (query) => {
@@ -159,7 +172,16 @@ const BookTable = () => {
                   Add new
                   <PlusCircleOutlined />
                 </Button>
-                <ReloadOutlined type="ghost" style={{ fontSize: "17px" }} />
+                <ReloadOutlined
+                  onClick={() => {
+                    setFilter("");
+                    setSortQuery("");
+                    setCurrent(1);
+                    setPageSize(10);
+                  }}
+                  type="ghost"
+                  style={{ fontSize: "17px" }}
+                />
               </div>
             }
           >
