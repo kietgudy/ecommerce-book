@@ -19,10 +19,10 @@ import {
   ReloadOutlined,
   UploadOutlined,
 } from "@ant-design/icons";
-import * as XLSX from "xlsx";
 import { callFetchListBook } from "../../../services/api.js";
 import moment from "moment/moment";
 import BookViewDetail from "./BookViewDetail.jsx";
+import BookModalCreate from "./BookModalCreate.jsx";
 
 const BookTable = () => {
   const [listBook, setListBook] = useState([]);
@@ -34,6 +34,7 @@ const BookTable = () => {
   const [sortQuery, setSortQuery] = useState("sort=-updatedAt");
   const [dataViewDetail, setDataViewDetail] = useState(null);
   const [openViewDetail, setOpenViewDetail] = useState(false);
+  const [openModalCreate, setOpenModalCreate] = useState(false);
 
   useEffect(() => {
     fetchBook();
@@ -185,7 +186,7 @@ const BookTable = () => {
                   Import
                   <CloudUploadOutlined />
                 </Button>
-                <Button type="primary">
+                <Button type="primary" onClick={() => setOpenModalCreate(true)}>
                   Add new
                   <PlusCircleOutlined />
                 </Button>
@@ -230,6 +231,10 @@ const BookTable = () => {
         setOpenViewDetail={setOpenViewDetail}
         dataViewDetail={dataViewDetail}
         setDataViewDetail={setDataViewDetail}
+      />
+      <BookModalCreate
+        openModalCreate={openModalCreate}
+        setOpenModalCreate={setOpenModalCreate}
       />
     </>
   );
