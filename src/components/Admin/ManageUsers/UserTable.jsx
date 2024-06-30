@@ -10,7 +10,6 @@ const UserTable = () => {
   const [current, setCurrent] = useState(1);
   const [pageSize, setPageSize] = useState(5);
   const [total, setTotal] = useState(0);
-
   const [isLoading, setIsLoading] = useState(false);
   const [filter, setFilter] = useState("");
   const [sortQuery, setSortQuery] = useState("");
@@ -21,11 +20,11 @@ const UserTable = () => {
     fetchUser();
   }, [current, pageSize, filter, sortQuery]);
 
-  const fetchUser = async (filter) => {
+  const fetchUser = async () => {
     setIsLoading(true);
     let query = `current=${current}&pageSize=${pageSize}`;
     if (filter) {
-      query += `&${filter}`;
+      query += filter;
     }
     if (sortQuery) {
       query += `&${sortQuery}`;
@@ -110,7 +109,7 @@ const UserTable = () => {
   };
 
   const handleSearch = (query) => {
-    fetchUser(query);
+    setFilter(query);
   };
 
   return (
@@ -125,8 +124,10 @@ const UserTable = () => {
             extra={
               <ReloadOutlined
                 onClick={() => {
-                  setFilter(null);
+                  setFilter("");
                   setSortQuery("");
+                  setCurrent(1);
+                  setPageSize(5);
                 }}
                 type="ghost"
                 style={{ fontSize: "17px" }}

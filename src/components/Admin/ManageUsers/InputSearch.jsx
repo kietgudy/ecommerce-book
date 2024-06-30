@@ -66,6 +66,7 @@ const InputSearch = (props) => {
             style={{ margin: "0 8px" }}
             onClick={() => {
               form.resetFields();
+              props.handleSearch(""); // Clear search
             }}
           >
             Clear
