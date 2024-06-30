@@ -179,16 +179,16 @@ const BookTable = () => {
             extra={
               <div style={{ display: "flex", gap: 15 }}>
                 <Button type="primary">
-                  Export
                   <UploadOutlined />
+                  Export
                 </Button>
                 <Button disabled={true} type="primary">
-                  Import
                   <CloudUploadOutlined />
+                  Import
                 </Button>
                 <Button type="primary" onClick={() => setOpenModalCreate(true)}>
-                  Add new
                   <PlusCircleOutlined />
+                  Add new
                 </Button>
                 <ReloadOutlined
                   onClick={() => {

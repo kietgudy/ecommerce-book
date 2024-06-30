@@ -12,12 +12,38 @@ import {
   message,
   notification,
 } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { callFetchCategory } from "../../../services/api";
 
 const BookModalCreate = (props) => {
   const { openModalCreate, setOpenModalCreate } = props;
+  const [isSubmit, setIsSubmit] = useState(false);
   const [form] = Form.useForm();
+  const [listCategory, setListCategory] = useState([]);
+
+  const [imageUrl, setImageUrl] = useState("");
   //fetch
+  useEffect(() => {
+    const fetchCategory = async () => {
+      const res = await callFetchCategory();
+      if (res && res.data) {
+        const d = res.data.map((item) => {
+          return {
+            label: item,
+            value: item,
+          };
+        });
+        setListCategory(d);
+      }
+    };
+    fetchCategory();
+  }, []);
+
+  const handleUploadFile = ({ file, onSuccess, onError }) => {
+    setTimeout(() => {
+        onSuccess("ok");
+    }, 1000);
+};
 
   return (
     <Modal
@@ -29,6 +55,7 @@ const BookModalCreate = (props) => {
       onCancel={() => setOpenModalCreate(false)}
       okText={"Tạo mới"}
       cancelText={"Hủy"}
+      confirmLoading={isSubmit}
       width={"50vw"}
       maskClosable={false}
     >
@@ -86,6 +113,7 @@ const BookModalCreate = (props) => {
                 showSearch
                 allowClear
                 //  onChange={handleChange}
+                options={listCategory}
               />
             </Form.Item>
           </Col>
@@ -124,9 +152,10 @@ const BookModalCreate = (props) => {
                 className="avatar-uploader"
                 maxCount={1}
                 multiple={false}
+                customRequest={handleUploadFile}
               >
                 <div>
-                  <div style={{ marginTop: 8 }}>Upload</div>
+                  <div>Upload</div>
                 </div>
               </Upload>
             </Form.Item>
@@ -134,13 +163,14 @@ const BookModalCreate = (props) => {
           <Col span={12}>
             <Form.Item labelCol={{ span: 24 }} label="Ảnh Slider" name="slider">
               <Upload
-                multiple
+                multiple //upload vo han
                 name="slider"
                 listType="picture-card"
                 className="avatar-uploader"
+                customRequest={handleUploadFile}
               >
                 <div>
-                  <div style={{ marginTop: 8 }}>Upload</div>
+                  <div>Upload</div>
                 </div>
               </Upload>
             </Form.Item>
