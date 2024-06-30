@@ -9,7 +9,7 @@ import {
   FileDoneOutlined,
   ReadOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu, Dropdown, Space, message } from "antd";
+import { Layout, Menu, Dropdown, Space, message, Avatar } from "antd";
 import { Outlet, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "./LayoutAdmin.scss";
@@ -71,6 +71,10 @@ const LayoutAdmin = () => {
   };
   const itemsDropdown = [
     {
+      label: <Link to="/">Trang chủ</Link>,
+      key: "home",
+    },
+    {
       label: <label style={{ cursor: "pointer" }}>Quản lý tài khoản</label>,
       key: "account",
     },
@@ -84,6 +88,9 @@ const LayoutAdmin = () => {
     },
   ];
 
+  const urlAvatar = `${import.meta.env.VITE_BACKEND_URL}/images/avatar/${
+    user?.avatar
+  }`;
   return (
     <Layout style={{ minHeight: "100vh" }} className="layout">
       <Sider
@@ -114,6 +121,7 @@ const LayoutAdmin = () => {
           <Dropdown menu={{ items: itemsDropdown }} trigger={["click"]}>
             <a onClick={(e) => e.preventDefault()}>
               <Space>
+                <Avatar src={urlAvatar} />
                 {user?.fullName}
                 <DownOutlined />
               </Space>
