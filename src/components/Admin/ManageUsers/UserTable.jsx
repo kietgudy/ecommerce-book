@@ -215,12 +215,16 @@ const UserTable = () => {
       <UserModalCreate
         openModalCreate={openModalCreate}
         setOpenModalCreate={setOpenModalCreate}
+        fetchUser={fetchUser}
+        setListUser={setListUser} 
       />
       <UserModalUpdate
         openModalUpdate={openModalUpdate}
         setOpenModalUpdate={setOpenModalUpdate}
         dataUpdate={dataUpdate}
         setDataUpdate={setDataUpdate}
+        fetchUser={fetchUser}
+        setListUser={setListUser} 
       />
     </>
   );
