@@ -11,6 +11,7 @@ import {
   UploadOutlined,
 } from "@ant-design/icons";
 import UserViewDetail from "./UserViewDetail.jsx";
+import UserModalCreate from "./UserModalCreate.jsx";
 
 const UserTable = () => {
   const [listUser, setListUser] = useState([]);
@@ -22,6 +23,7 @@ const UserTable = () => {
   const [sortQuery, setSortQuery] = useState("");
   const [dataViewDetail, setDataViewDetail] = useState(null);
   const [openViewDetail, setOpenViewDetail] = useState(false);
+  const [openModalCreate, setOpenModalCreate] = useState(false);
 
   useEffect(() => {
     fetchUser();
@@ -138,7 +140,7 @@ const UserTable = () => {
                   Import
                   <CloudUploadOutlined />
                 </Button>
-                <Button type="primary">
+                <Button type="primary" onClick={() => setOpenModalCreate(true)}>
                   Add new
                   <PlusCircleOutlined />
                 </Button>
@@ -183,6 +185,10 @@ const UserTable = () => {
         setOpenViewDetail={setOpenViewDetail}
         dataViewDetail={dataViewDetail}
         setDataViewDetail={setDataViewDetail}
+      />
+      <UserModalCreate
+        openModalCreate={openModalCreate}
+        setOpenModalCreate={setOpenModalCreate}
       />
     </>
   );
