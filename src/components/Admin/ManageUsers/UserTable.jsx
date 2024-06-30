@@ -10,6 +10,7 @@ import {
   ReloadOutlined,
   UploadOutlined,
 } from "@ant-design/icons";
+import * as XLSX from "xlsx";
 import UserViewDetail from "./UserViewDetail.jsx";
 import UserModalCreate from "./UserModalCreate.jsx";
 
@@ -121,6 +122,15 @@ const UserTable = () => {
     setFilter(query);
   };
 
+  const handleExportData = () => {
+    if (listUser.length > 0) {
+      const worksheet = XLSX.utils.json_to_sheet(listUser);
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+      XLSX.writeFile(workbook, "ExportUser.csv");
+    }
+  };
+
   return (
     <>
       <Row gutter={[20, 20]}>
@@ -132,11 +142,11 @@ const UserTable = () => {
             title="QUẢN LÝ NGƯỜI DÙNG"
             extra={
               <div style={{ display: "flex", gap: 15 }}>
-                <Button type="primary">
+                <Button type="primary" onClick={() => handleExportData()}>
                   Export
                   <UploadOutlined />
                 </Button>
-                <Button type="primary">
+                <Button disabled={true} type="primary">
                   Import
                   <CloudUploadOutlined />
                 </Button>

@@ -20,7 +20,8 @@
     "react-redux": "8.0.5",
     "react-router-dom": "^6.24.0",
     "react-spinners": "^0.14.1",
-    "sass": "^1.77.6"
+    "sass": "^1.77.6",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/react": "18.0.28",

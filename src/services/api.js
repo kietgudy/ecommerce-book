@@ -30,3 +30,6 @@ export const callCreateUser = (fullName, password, email, phone) => {
     phone,
   });
 };
+export const callDeleteUser = (id) => {
+  return axios.delete(`/api/v1/user/${id}`);
+};
