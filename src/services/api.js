@@ -33,7 +33,7 @@ export const callCreateUser = (fullName, password, email, phone) => {
 export const callDeleteUser = (id) => {
   return axios.delete(`/api/v1/user/${id}`);
 };
-export const callUpdateUser = (_id, fullName,phone) => {
+export const callUpdateUser = (_id, fullName, phone) => {
   return axios.put("/api/v1/user", {
     _id,
     fullName,
@@ -46,5 +46,40 @@ export const callFetchListBook = (query) => {
 };
 
 export const callFetchCategory = () => {
-  return axios.get('/api/v1/database/category')
-}
+  return axios.get("/api/v1/database/category");
+};
+export const callUploadBookImg = (fileImg) => {
+  const bodyFormData = new FormData();
+  bodyFormData.append("fileImg", fileImg);
+  return axios({
+    method: "post",
+    url: "/api/v1/file/upload",
+    data: bodyFormData,
+    headers: {
+      "Content-Type": "multipart/form-data",
+      "upload-type": "book",
+    },
+  });
+};
+
+export const callCreateBook = (
+  thumbnail,
+  slider,
+  mainText,
+  author,
+  price,
+  sold,
+  quantity,
+  category
+) => {
+  return axios.post("/api/v1/book", {
+    thumbnail,
+    slider,
+    mainText,
+    author,
+    price,
+    sold,
+    quantity,
+    category,
+  });
+};

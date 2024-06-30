@@ -92,6 +92,12 @@ const BookViewDetail = (props) => {
           <Descriptions.Item label="Giá tiền">
             {formatVND(dataViewDetail?.price)}
           </Descriptions.Item>
+          <Descriptions.Item label="Số lượng">
+            {dataViewDetail?.quantity}
+          </Descriptions.Item>
+          <Descriptions.Item label="Đã bán">
+            {dataViewDetail?.sold}
+          </Descriptions.Item>
           <Descriptions.Item label="Thể loại" span={2}>
             <Badge status="processing" text={dataViewDetail?.category} />
           </Descriptions.Item>
