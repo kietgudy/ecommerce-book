@@ -80,7 +80,9 @@ const Header = () => {
           })}
         </div>
         <div className="pop-cart-footer">
+          <Link to={"order"}>
           <button>Xem giỏ hàng</button>
+          </Link>
         </div>
       </div>
     );
