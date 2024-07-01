@@ -83,3 +83,9 @@ export const callCreateBook = (
     category,
   });
 };
+
+export const callUpdateBook = (id, thumbnail, slider, mainText, author, price, sold, quantity, category) => {
+  return axios.put(`/api/v1/book/${id}`, {
+    thumbnail, slider, mainText, author, price, sold, quantity, category
+  })
+}
