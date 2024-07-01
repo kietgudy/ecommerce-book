@@ -67,13 +67,13 @@ const Header = () => {
             >
               ☰
             </div>
-            <div className="page-header__logo">
+            <Link to={"/"} className="page-header__logo">
               <img
-                src="./logo.jpg"
+                src="./logo.png"
                 alt="logo shop"
                 style={{ height: "88px" }}
               />
-            </div>
+            </Link>
             <div className="page-header__search">
               <SearchOutlined
                 style={{ fontSize: "18px" }}
@@ -91,32 +91,29 @@ const Header = () => {
           </div>
           <nav className="page-header__bottom">
             <div id="navigation" className="navigation">
-              <div className="navigation-home">
+              <Link to={"/"} className="navigation-home">
                 <HomeOutlined />
                 Trang chủ
-              </div>
-              <div className="navigation__item mobile">
-                <Divider type="vertical" />
-              </div>
-              <div className="navigation__item mobile">
+              </Link>
+              <div className="navigation__item">
                 {!isAuthenticated ? (
                   <span onClick={() => navigate("/login")}>Tài Khoản</span>
                 ) : (
                   <Dropdown menu={{ items }} trigger={["click"]}>
                     <a onClick={(e) => e.preventDefault()}>
                       <Space>
-                        <Avatar src={urlAvatar}/>
+                        <Avatar src={urlAvatar} />
                         {user?.fullName}
                         <DownOutlined />
                       </Space>
                     </a>
                   </Dropdown>
                 )}
-                <div className="navigation__item">
-                  <Badge count={5} size={"small"}>
-                    <ShoppingCartOutlined style={{ fontSize: "25px" }} />
-                  </Badge>
-                </div>
+              </div>
+              <div className="navigation__item">
+                <Badge count={5} size={"small"}>
+                  <ShoppingCartOutlined style={{ fontSize: "25px" }} />
+                </Badge>
               </div>
             </div>
           </nav>

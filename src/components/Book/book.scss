@@ -23,7 +23,7 @@
 
     .price {
         border-radius: 4px;
-        background-color: rgb(250, 250, 250);
+        background-color: rgb(220, 245, 255);
         padding: 25px;
         margin-bottom: 20px;
 
@@ -32,7 +32,7 @@
             line-height: 40px;
             margin-right: 8px;
             font-weight: 500;
-            color: #ee4d2d;
+            color: #1b92cd;
         }
     }
 
@@ -100,9 +100,9 @@
         button {
             overflow: visible;
             outline: 0;
-            background: #ff57221a;
-            color: #ee4d2d;
-            border: 1px solid #ee4d2d;
+            background: #2f92df1a;
+            color: #1b92cd;
+            border: 1px solid #0676ae;
             box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .03);
             cursor: pointer;
             border-radius: 3px;
@@ -116,13 +116,13 @@
                 position: relative;
                 overflow: visible;
                 outline: 0;
-                background: #ee4d2d;
+                background: #1b92cd;
             }
         }
 
         .cart {
             &:hover {
-                background: #ffc5b22e;
+                background: #5b8be32e;
             }
 
             span {
@@ -132,7 +132,7 @@
 
         .now {
             &:hover {
-                background: #f05d40;
+                background: #3bb6f4;
             }
         }
     }
@@ -141,7 +141,7 @@
 
 .modal-gallery {
     .active {
-        border: 2px solid #ee4d2d;
+        border: 2px solid #1b92cd;
         position: absolute;
         width: 100px;
         height: 100px;

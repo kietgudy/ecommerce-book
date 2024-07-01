@@ -7,7 +7,7 @@
       justify-content: center;
       user-select: none;
       height: 55px;
-      color: #808089;
+      color: #000000e0;
       width: 100%;
       max-width: 1440px;
       margin: 0 auto;
@@ -83,6 +83,7 @@
     .navigation {
       display: flex;
       align-items: center;
+      gap: 10px;
       justify-content: space-between;
       opacity: 1;
       height: auto;
@@ -92,8 +93,11 @@
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        gap: 5px;
+        text-decoration: none;
+        color: #000000e0;
+        gap: 10px;
       }
+      
   
       &__item {
         opacity: 0.8;
