@@ -1,9 +1,11 @@
-import React from 'react'
+import React from "react";
+import { useLocation } from "react-router-dom";
 
 const BookPage = () => {
-  return (
-    <div>BookPage</div>
-  )
-}
+  let location = useLocation();
+  let params = new URLSearchParams(location.search);
+  const id = params?.get("id");
+  return <div>BookPage</div>;
+};
 
 export default BookPage;
