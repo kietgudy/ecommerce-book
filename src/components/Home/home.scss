@@ -22,6 +22,12 @@
                 .text {
                     padding: 0.5rem 0;
                     font-size: .75rem;
+                    height: 50px;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
                 }
 
                 .rating {
