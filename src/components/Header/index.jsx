@@ -71,7 +71,7 @@ const Header = () => {
               <img
                 src="./logo.jpg"
                 alt="logo shop"
-                style={{ height: "95px" }}
+                style={{ height: "88px" }}
               />
             </div>
             <div className="page-header__search">
