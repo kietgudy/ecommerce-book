@@ -23,6 +23,7 @@ import { callFetchListBook } from "../../../services/api.js";
 import moment from "moment/moment";
 import BookViewDetail from "./BookViewDetail.jsx";
 import BookModalCreate from "./BookModalCreate.jsx";
+import BookModalUpdate from "./BookModalUpdate.jsx";
 
 const BookTable = () => {
   const [listBook, setListBook] = useState([]);
@@ -35,6 +36,8 @@ const BookTable = () => {
   const [dataViewDetail, setDataViewDetail] = useState(null);
   const [openViewDetail, setOpenViewDetail] = useState(false);
   const [openModalCreate, setOpenModalCreate] = useState(false);
+  const [openModalUpdate, setOpenModalUpdate] = useState(false);
+  const [dataUpdate, setDataUpdate] = useState(null);
 
   useEffect(() => {
     fetchBook();
@@ -128,7 +131,10 @@ const BookTable = () => {
                 cursor: "pointer",
                 marginRight: 15,
               }}
-              onClick={() => {}}
+              onClick={() => {
+                setOpenModalUpdate(true);
+                setDataUpdate(record);
+              }}
             />
             <Popconfirm
               placement="left"
@@ -236,6 +242,12 @@ const BookTable = () => {
         openModalCreate={openModalCreate}
         setOpenModalCreate={setOpenModalCreate}
         fetchBook={fetchBook}
+      />
+      <BookModalUpdate
+        openModalUpdate={openModalUpdate}
+        setOpenModalUpdate={setOpenModalUpdate}
+        dataUpdate={dataUpdate}
+        setDataUpdate={setDataUpdate}
       />
     </>
   );
