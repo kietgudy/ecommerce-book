@@ -347,6 +347,7 @@ const BookModalUpdate = (props) => {
                 ]}
               >
                 <InputNumber
+                  disabled
                   min={0}
                   defaultValue={0}
                   style={{ width: "100%" }}

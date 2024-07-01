@@ -24,6 +24,8 @@ import moment from "moment/moment";
 import BookViewDetail from "./BookViewDetail.jsx";
 import BookModalCreate from "./BookModalCreate.jsx";
 import BookModalUpdate from "./BookModalUpdate.jsx";
+import * as XLSX from "xlsx";
+
 
 const BookTable = () => {
   const [listBook, setListBook] = useState([]);
@@ -174,6 +176,15 @@ const BookTable = () => {
     setFilter(query);
   };
 
+  const handleExportData = () => {
+    if (listBook.length > 0) {
+      const worksheet = XLSX.utils.json_to_sheet(listBook);
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+      XLSX.writeFile(workbook, "ExportBook.csv");
+    }
+  };
+
   const handleDeleteBook = async (id) => {
     const res = await callDeleteBook(id);
     if (res && res.data) {
@@ -198,7 +209,7 @@ const BookTable = () => {
             title="QUẢN LÝ SÁCH"
             extra={
               <div style={{ display: "flex", gap: 15 }}>
-                <Button type="primary">
+                <Button type="primary" onClick={() => handleExportData()}>
                   <UploadOutlined />
                   Export
                 </Button>
