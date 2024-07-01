@@ -19,7 +19,7 @@ import {
   ReloadOutlined,
   UploadOutlined,
 } from "@ant-design/icons";
-import { callFetchListBook } from "../../../services/api.js";
+import { callDeleteBook, callFetchListBook } from "../../../services/api.js";
 import moment from "moment/moment";
 import BookViewDetail from "./BookViewDetail.jsx";
 import BookModalCreate from "./BookModalCreate.jsx";
@@ -140,6 +140,7 @@ const BookTable = () => {
               placement="left"
               title={"Xác nhận xóa sách"}
               description={"Bạn có chắc chắn muốn xóa sách này?"}
+              onConfirm={() => handleDeleteBook(record._id)}
               okText="Xác nhận"
               cancelText="Hủy"
             >
@@ -171,6 +172,19 @@ const BookTable = () => {
   };
   const handleSearch = (query) => {
     setFilter(query);
+  };
+
+  const handleDeleteBook = async (id) => {
+    const res = await callDeleteBook(id);
+    if (res && res.data) {
+      message.success("Xóa sách thành công!");
+      fetchBook();
+    } else {
+      notification.error({
+        message: "Có lỗi xảy ra :(",
+        description: res.message,
+      });
+    }
   };
 
   return (
@@ -248,6 +262,7 @@ const BookTable = () => {
         setOpenModalUpdate={setOpenModalUpdate}
         dataUpdate={dataUpdate}
         setDataUpdate={setDataUpdate}
+        fetchBook={fetchBook}
       />
     </>
   );

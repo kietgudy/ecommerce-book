@@ -89,3 +89,7 @@ export const callUpdateBook = (id, thumbnail, slider, mainText, author, price, s
     thumbnail, slider, mainText, author, price, sold, quantity, category
   })
 }
+
+export const callDeleteBook = (id) => {
+  return axios.delete(`/api/v1/book/${id}`)
+}

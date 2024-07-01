@@ -15,6 +15,7 @@ import {
 import {
   callCreateBook,
   callFetchCategory,
+  callUpdateBook,
   callUploadBookImg,
 } from "../../../services/api";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
@@ -115,13 +116,14 @@ const BookModalUpdate = (props) => {
       return;
     }
 
-    const {_id, mainText, author, price, sold, quantity, category } = values;
+    const { _id, mainText, author, price, sold, quantity, category } = values;
     const thumbnail = dataThumbnail[0].name;
     const slider = dataSlider.map((item) => item.name);
 
     setIsSubmit(true);
-    
-    const res = await callCreateBook(
+
+    const res = await callUpdateBook(
+      _id,
       thumbnail,
       slider,
       mainText,
@@ -136,6 +138,7 @@ const BookModalUpdate = (props) => {
       form.resetFields();
       setDataSlider([]);
       setDataThumbnail([]);
+      setInitForm(null);
       setOpenModalUpdate(false);
       await props.fetchBook();
     } else {
@@ -264,6 +267,11 @@ const BookModalUpdate = (props) => {
 
         <Form form={form} name="basic" onFinish={onFinish} autoComplete="off">
           <Row gutter={15}>
+            <Col hidden>
+              <Form.Item hidden labelCol={{ span: 24 }} label="ID" name="_id">
+                <Input />
+              </Form.Item>
+            </Col>
             <Col span={12}>
               <Form.Item
                 labelCol={{ span: 24 }}
