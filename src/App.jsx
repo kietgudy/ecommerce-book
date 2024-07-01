@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import LoginPage from "./pages/login";
 import "./styles/reset.scss";
+import "./styles/global.scss"
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import ContactPage from "./pages/contact";
 import Header from "./components/Header";
@@ -18,6 +19,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import LayoutAdmin from "./components/Admin/LayoutAdmin";
 import UserTable from "./components/Admin/ManageUsers/UserTable";
 import BookTable from "./components/Admin/ManageBooks/BookTable";
+import OrderPage from "./pages/order";
 
 const Layout = () => {
   return (
@@ -64,6 +66,10 @@ export default function App() {
         {
           path: "book/:slug",
           element: <BookPage />,
+        },
+        {
+          path: "order",
+          element: <OrderPage />,
         },
       ],
     },
