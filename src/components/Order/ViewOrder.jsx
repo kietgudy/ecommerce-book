@@ -8,11 +8,13 @@ import {
   doUpdateCartAction,
 } from "../../redux/order/orderSlice";
 import { useEffect, useState } from "react";
+import Payment from "./Payment";
 
 const ViewOrder = (props) => {
   const carts = useSelector((state) => state.order.carts);
   const [totalPrice, setTotalPrice] = useState(0);
   const dispatch = useDispatch();
+  const { currentStep, setCurrentStep } = props;
 
   useEffect(() => {
     if (carts && carts.length > 0) {
@@ -97,29 +99,34 @@ const ViewOrder = (props) => {
             )}
           </Col>
           <Col md={6} xs={24}>
-            <div className="order-sum">
-              <div className="calculate">
-                <span> Tạm tính</span>
-                <span>
-                  {new Intl.NumberFormat("vi-VN", {
-                    style: "currency",
-                    currency: "VND",
-                  }).format(totalPrice || 0)}
-                </span>
+            {currentStep === 0 && (
+              <div className="order-sum">
+                <div className="calculate">
+                  <span> Tạm tính</span>
+                  <span>
+                    {new Intl.NumberFormat("vi-VN", {
+                      style: "currency",
+                      currency: "VND",
+                    }).format(totalPrice || 0)}
+                  </span>
+                </div>
+                <Divider style={{ margin: "10px 0" }} />
+                <div className="calculate">
+                  <span> Tổng tiền</span>
+                  <span className="sum-final">
+                    {new Intl.NumberFormat("vi-VN", {
+                      style: "currency",
+                      currency: "VND",
+                    }).format(totalPrice || 0)}
+                  </span>
+                </div>
+                <Divider style={{ margin: "10px 0" }} />
+                <button onClick={() => setCurrentStep(1)}>
+                  Mua Hàng ({carts?.length ?? 0})
+                </button>
               </div>
-              <Divider style={{ margin: "10px 0" }} />
-              <div className="calculate">
-                <span> Tổng tiền</span>
-                <span className="sum-final">
-                  {new Intl.NumberFormat("vi-VN", {
-                    style: "currency",
-                    currency: "VND",
-                  }).format(totalPrice || 0)}
-                </span>
-              </div>
-              <Divider style={{ margin: "10px 0" }} />
-              <button>Mua Hàng ({carts?.length ?? 0})</button>
-            </div>
+            )}{" "}
+            {currentStep === 1 && <Payment />}
           </Col>
         </Row>
       </div>
