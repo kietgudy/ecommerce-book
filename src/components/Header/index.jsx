@@ -5,6 +5,7 @@ import {
   HomeOutlined,
   SearchOutlined,
   ShoppingCartOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import { Dropdown, Space } from "antd";
 import "./Header.scss";
@@ -133,14 +134,14 @@ const Header = () => {
                 <HomeOutlined />
                 Trang chủ
               </Link>
-              <div className="navigation__item">
+              <div className="navigation__user">
                 {!isAuthenticated ? (
-                  <span onClick={() => navigate("/login")}>Tài Khoản</span>
+                  <span onClick={() => navigate("/login")}><Avatar icon={<UserOutlined />} /></span>
                 ) : (
                   <Dropdown menu={{ items }} trigger={["click"]}>
                     <a onClick={(e) => e.preventDefault()}>
                       <Space>
-                        <Avatar src={urlAvatar} />
+                        <Avatar src={urlAvatar} style={{ border: "1px solid #49a8d7"}} />
                         {user?.fullName}
                         <DownOutlined />
                       </Space>

@@ -26,7 +26,6 @@ import UserModalCreate from "./UserModalCreate.jsx";
 import UserModalUpdate from "./UserModalUpdate.jsx";
 import moment from "moment/moment";
 
-
 const UserTable = () => {
   const [listUser, setListUser] = useState([]);
   const [current, setCurrent] = useState(1);
@@ -161,6 +160,7 @@ const UserTable = () => {
   };
 
   const handleSearch = (query) => {
+    setCurrent(1);
     setFilter(query);
   };
 
