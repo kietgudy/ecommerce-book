@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ViewOrder from "../../components/Order/ViewOrder";
 import { Result, Steps, Button } from "antd";
 import "./order.scss";
+import { Link } from "react-router-dom";
 
 const OrderPage = () => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -33,7 +34,7 @@ const OrderPage = () => {
             title="Chúc mừng bạn đặt hàng thành công!"
             extra={[
               <Button type="primary" key="console">
-                Xem lịch sử đặt hàng
+                <Link to="/history">Xem lịch sử đặt hàng</Link>
               </Button>,
             ]}
           />

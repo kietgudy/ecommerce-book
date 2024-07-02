@@ -20,6 +20,7 @@ import LayoutAdmin from "./components/Admin/LayoutAdmin";
 import UserTable from "./components/Admin/ManageUsers/UserTable";
 import BookTable from "./components/Admin/ManageBooks/BookTable";
 import OrderPage from "./pages/order";
+import History from "./pages/order/history";
 
 const Layout = () => {
   return (
@@ -71,6 +72,11 @@ export default function App() {
           path: "order",
           element: <OrderPage />,
         },
+        {
+          path: "history",
+          element: <History />,
+        },
+
       ],
     },
     {
