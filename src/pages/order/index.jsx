@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import ViewOrder from "../../components/Order/ViewOrder";
 import { Result, Steps } from "antd";
-import Payment from "../../components/Order/Payment";
 import "./order.scss";
 
 const OrderPage = (props) => {

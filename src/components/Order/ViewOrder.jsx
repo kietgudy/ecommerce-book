@@ -126,7 +126,7 @@ const ViewOrder = (props) => {
                 </button>
               </div>
             )}{" "}
-            {currentStep === 1 && <Payment />}
+            {currentStep === 1 && <Payment setCurrentStep={setCurrentStep} />}
           </Col>
         </Row>
       </div>

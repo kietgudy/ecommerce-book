@@ -9,8 +9,10 @@ import { LoadingOutlined } from "@ant-design/icons";
 
 const Payment = (props) => {
   const carts = useSelector((state) => state.order.carts);
+  const user = useSelector((state) => state.account.user);
   const [isSubmit, setIsSubmit] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
+  const { setCurrentStep } = props;
 
   const dispatch = useDispatch();
   console.log("cart,", carts);
@@ -28,9 +30,8 @@ const Payment = (props) => {
     }
   }, [carts]);
 
-  
-
   const onFinish = async (values) => {
+    setIsSubmit(true);
     const detailOrder = carts.map((item) => ({
       bookName: item.detail.mainText,
       quantity: item.quantity,
@@ -47,23 +48,25 @@ const Payment = (props) => {
     if (res && res.data) {
       message.success("Đặt hàng thành công!");
       dispatch(doPlaceOrderAction());
-      props.setCurrentStep(2);
+      setCurrentStep(2);
     } else {
       notification.error({
         message: "Đã có lỗi xảy ra :(",
         description: res.message,
       });
     }
+    setIsSubmit(false);
   };
   return (
     <div className="payment">
       <div className="payment-info">
-        <Form form={form}>
+        <Form form={form} onFinish={onFinish}>
           <Form.Item
             style={{ margin: 0 }}
             labelCol={{ span: 24 }}
             label="Tên người nhận"
             name="name"
+            initialValue={user?.fullName}
             rules={[
               {
                 required: true,
@@ -78,6 +81,7 @@ const Payment = (props) => {
             labelCol={{ span: 24 }}
             label="Số điện thoại"
             name="phone"
+            initialValue={user?.phone}
             rules={[
               { required: true, message: "Số điện thoại không được để trống!" },
             ]}
@@ -117,7 +121,6 @@ const Payment = (props) => {
           <Divider style={{ margin: "15px 0" }} />
           <button
             onClick={() => {
-              setCurrentStep(1);
               form.submit();
             }}
           >
