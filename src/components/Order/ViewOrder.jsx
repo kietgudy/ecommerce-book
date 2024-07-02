@@ -1,4 +1,4 @@
-import { Col, Divider, InputNumber, Row } from "antd";
+import { Col, Divider, Empty, InputNumber, Row } from "antd";
 import "./order.scss";
 import { DeleteOutlined } from "@ant-design/icons";
 import { isNaN } from "lodash";
@@ -53,13 +53,13 @@ const ViewOrder = (props) => {
                       }`}
                     />
                     <div className="book-info">
-                    <div className="title">{book?.detail?.mainText}</div>
-                    <div className="price">
-                      {new Intl.NumberFormat("vi-VN", {
-                        style: "currency",
-                        currency: "VND",
-                      }).format(currentBookPrice ?? 0)}
-                    </div>
+                      <div className="title">{book?.detail?.mainText}</div>
+                      <div className="price">
+                        {new Intl.NumberFormat("vi-VN", {
+                          style: "currency",
+                          currency: "VND",
+                        }).format(currentBookPrice ?? 0)}
+                      </div>
                     </div>
                   </div>
                   <div className="action">
@@ -69,29 +69,53 @@ const ViewOrder = (props) => {
                         value={book.quantity}
                       />
                     </div>
-                    <div className="sum">Tổng: {new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(totalBookPrice ?? 0)}</div>
+                    <div className="sum">
+                      Tổng:{" "}
+                      {new Intl.NumberFormat("vi-VN", {
+                        style: "currency",
+                        currency: "VND",
+                      }).format(totalBookPrice ?? 0)}
+                    </div>
                     <DeleteOutlined
-                      style={{ cursor: "pointer" }}
+                      style={{
+                        cursor: "pointer",
+                        color: "red",
+                        fontSize: "17px",
+                      }}
                       onClick={() =>
                         dispatch(doDeleteItemCartAction({ _id: book._id }))
                       }
-                      twoToneColor="red"
                     />
                   </div>
                 </div>
               );
             })}
+            {carts.length === 0 && (
+              <div className="order-book-empty">
+                <Empty description={"Không có sản phẩm trong giỏ hàng"} />
+              </div>
+            )}
           </Col>
           <Col md={6} xs={24}>
             <div className="order-sum">
               <div className="calculate">
                 <span> Tạm tính</span>
-                <span>{new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(totalPrice || 0)}</span>
+                <span>
+                  {new Intl.NumberFormat("vi-VN", {
+                    style: "currency",
+                    currency: "VND",
+                  }).format(totalPrice || 0)}
+                </span>
               </div>
               <Divider style={{ margin: "10px 0" }} />
               <div className="calculate">
                 <span> Tổng tiền</span>
-                <span className="sum-final">{new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(totalPrice || 0)}</span>
+                <span className="sum-final">
+                  {new Intl.NumberFormat("vi-VN", {
+                    style: "currency",
+                    currency: "VND",
+                  }).format(totalPrice || 0)}
+                </span>
               </div>
               <Divider style={{ margin: "10px 0" }} />
               <button>Mua Hàng ({carts?.length ?? 0})</button>

@@ -1,4 +1,11 @@
 .order-container {
+  .order-book-empty {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    height: 50vh;
+    gap: 20px;
+  }
   .order-book {
     display: flex;
     gap: 30px;
