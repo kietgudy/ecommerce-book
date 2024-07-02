@@ -38,6 +38,14 @@ const Header = () => {
     },
     {
       label: (
+        <Link to={"history"}>
+          <label style={{ cursor: "pointer" }}>Lịch sử mua hàng</label>
+        </Link>
+      ),
+      key: "history",
+    },
+    {
+      label: (
         <label style={{ cursor: "pointer" }} onClick={() => handleLogout()}>
           Đăng xuất
         </label>
@@ -81,7 +89,7 @@ const Header = () => {
         </div>
         <div className="pop-cart-footer">
           <Link to={"order"}>
-          <button>Xem giỏ hàng</button>
+            <button>Xem giỏ hàng</button>
           </Link>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import LoginPage from "./pages/login";
 import "./styles/reset.scss";
-import "./styles/global.scss"
+import "./styles/global.scss";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import ContactPage from "./pages/contact";
 import Header from "./components/Header";
@@ -70,13 +70,20 @@ export default function App() {
         },
         {
           path: "order",
-          element: <OrderPage />,
+          element: (
+            <ProtectedRoute>
+              <OrderPage />
+            </ProtectedRoute>
+          ),
         },
         {
           path: "history",
-          element: <History />,
+          element: (
+            <ProtectedRoute>
+              <History />
+            </ProtectedRoute>
+          ),
         },
-
       ],
     },
     {
