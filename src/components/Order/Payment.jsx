@@ -12,7 +12,7 @@ const Payment = (props) => {
   const user = useSelector((state) => state.account.user);
   const [isSubmit, setIsSubmit] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
-  const { setCurrentStep } = props;
+  const { setCurrentStep, currentStep } = props;
 
   const dispatch = useDispatch();
   console.log("cart,", carts);
@@ -131,6 +131,7 @@ const Payment = (props) => {
             )}
             Đặt Hàng ({carts?.length ?? 0})
           </button>
+        
         </div>
       </div>
     </div>

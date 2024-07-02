@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import ViewOrder from "../../components/Order/ViewOrder";
-import { Result, Steps } from "antd";
+import { Result, Steps, Button } from "antd";
 import "./order.scss";
 
-const OrderPage = (props) => {
+const OrderPage = () => {
   const [currentStep, setCurrentStep] = useState(0);
+
   return (
     <div style={{ background: "#efefef", padding: "20px 0" }}>
       <div className="order-container">
@@ -26,14 +27,8 @@ const OrderPage = (props) => {
             ]}
           />
         </div>
-        {
-          <ViewOrder
-            currentStep={currentStep}
-            setCurrentStep={setCurrentStep}
-          />
-        }
         {currentStep === 2 && (
-          <Result
+          <Result className="result"
             status="success"
             title="Chúc mừng bạn đặt hàng thành công!"
             extra={[
@@ -42,6 +37,9 @@ const OrderPage = (props) => {
               </Button>,
             ]}
           />
+        )}
+        {currentStep !== 2 && (
+          <ViewOrder currentStep={currentStep} setCurrentStep={setCurrentStep} />
         )}
       </div>
     </div>

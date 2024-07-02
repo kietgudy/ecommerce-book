@@ -1,4 +1,4 @@
-import { Col, Divider, Empty, InputNumber, Row } from "antd";
+import { Col, Divider, Empty, InputNumber, Result, Row } from "antd";
 import "./order.scss";
 import { DeleteOutlined } from "@ant-design/icons";
 import { isNaN } from "lodash";
