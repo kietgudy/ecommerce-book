@@ -130,13 +130,13 @@ const ViewDetail = (props) => {
                   </div>
                   <div className="buy">
                     <button
-                      className="cart"
+                      className="cart now"
                       onClick={() => handleAddToCart(currentQuantity, dataBook)}
                     >
                       <BsCartPlus className="icon-cart" />
                       <span>Thêm vào giỏ hàng</span>
                     </button>
-                    <button className="now">Mua ngay</button>
+                    {/* <button className="now" >Mua ngay</button> */}
                   </div>
                 </Col>
               </Col>

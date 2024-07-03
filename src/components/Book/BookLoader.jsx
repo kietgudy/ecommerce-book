@@ -30,8 +30,7 @@ const BookLoader = () => {
                 />
                 <br /> <br />
                 <div style={{ display: "flex", gap: 20, marginTop: 20, overflow: 'hidden' }}>
-                    <Skeleton.Button active={true} style={{ width: 100 }} />
-                    <Skeleton.Button active={true} style={{ width: 100 }} />
+                    <Skeleton.Button active={true} style={{ width: 200, height: 60 }} />
                 </div>
             </Col>
         </Row>

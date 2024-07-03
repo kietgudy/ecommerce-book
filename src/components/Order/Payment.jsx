@@ -18,6 +18,7 @@ const Payment = (props) => {
   console.log("cart,", carts);
   const [form] = Form.useForm();
 
+  
   useEffect(() => {
     if (carts && carts.length > 0) {
       let sum = 0;
@@ -131,7 +132,6 @@ const Payment = (props) => {
             )}
             Đặt Hàng ({carts?.length ?? 0})
           </button>
-        
         </div>
       </div>
     </div>
