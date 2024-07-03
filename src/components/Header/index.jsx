@@ -66,6 +66,15 @@ const Header = ({ setSearchTerm }) => {
   }`;
 
   const contentPopover = () => {
+    if (carts?.length === 0) {
+      return (
+        <div className="cart-empty">
+          <img src="./cart_empty.png" alt="empty" />
+          <span>Chưa có sản phẩm nào</span>
+        </div>
+      );
+    }
+
     return (
       <div className="pop-cart-body">
         <div className="pop-cart-content">

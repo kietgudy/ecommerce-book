@@ -1,51 +1,66 @@
 .pop-cart-body {
-    width: 400px;
-    background-color: #fff;
-    border: 1px solid #ebebeb;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+  width: 400px;
 
-    .pop-cart-content {
-      padding: 16px 16px 0 16px;
-      .book {
-        display: flex;
-        align-items: center;
-        margin-bottom: 16px;
-        img {
-          width: 60px;
-          height: 60px;
-          margin-right: 10px;
-        }
-        .book-name {
-          font-size: 16px;
-          color: #333;
-          margin-right: auto;
-        }
-        .book-price {
-          font-size: 14px;
-          color: #1b92cd;
-        }
-        &:hover {
-          background-color: #f8f8f8;
-          cursor: pointer;
-        }
+  .pop-cart-content {
+    padding: 16px 16px 0 16px;
+    .book {
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px;
+      img {
+        width: 60px;
+        height: 60px;
+        margin-right: 10px;
       }
-    }
-    .pop-cart-footer {
-      padding: 16px;
-      border-top: 1px solid #ebebeb;
-      text-align: center;
-      button {
-        background-color: #1b92cd;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        padding: 10px 16px;
+      .book-name {
+        font-size: 16px;
+        color: #333;
+        margin-right: auto;
+      }
+      .book-price {
+        font-size: 14px;
+        color: #1b92cd;
+      }
+      &:hover {
+        background-color: #f8f8f8;
         cursor: pointer;
-        &:hover {
-          background-color: #047fbd;
-        }
       }
     }
   }
-  
+  .pop-cart-footer {
+    padding: 16px;
+    border-top: 1px solid #ebebeb;
+    text-align: center;
+    button {
+      background-color: #1b92cd;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 16px;
+      cursor: pointer;
+      &:hover {
+        background-color: #047fbd;
+      }
+    }
+  }
+}
+.cart-empty {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+  color: #999;
+
+  img {
+    width: 150px;
+    height: auto;
+    border-bottom: 1px solid #ebebeb;
+    margin-bottom: 20px;
+  }
+  span {
+    font-size: 15px;
+  }
+}
