@@ -14,6 +14,7 @@
     "@reduxjs/toolkit": "1.9.3",
     "antd": "^5.18.3",
     "axios": "^1.7.2",
+    "lodash": "^4.17.21",
     "moment": "^2.30.1",
     "react": "18.2.0",
     "react-countup": "^6.5.3",
