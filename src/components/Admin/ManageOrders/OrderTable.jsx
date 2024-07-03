@@ -8,6 +8,7 @@ import { Button, Card, Col, Row, Table } from "antd";
 import React, { useEffect, useState } from "react";
 import { callFetchListOrder } from "../../../services/api";
 import moment from "moment";
+import InputSearch from "./InputSearch";
 
 const OrderTable = () => {
   const [listOrder, setListOrder] = useState([]);
@@ -100,11 +101,17 @@ const OrderTable = () => {
       setSortQuery(q);
     }
   };
+  const handleSearch = (query) => {
+    setCurrent(1);
+    setFilter(query);
+  };
 
   return (
     <div>
       <Row gutter={[20, 20]}>
-        <Col span={24}>{/* <InputSearch handleSearch={handleSearch} /> */}</Col>
+        <Col span={24}>
+          <InputSearch handleSearch={handleSearch} />
+        </Col>
         <Col span={24}>
           <Card
             title="QUẢN LÝ ĐƠN HÀNG"
@@ -122,7 +129,16 @@ const OrderTable = () => {
                   <PlusCircleOutlined />
                   Add new
                 </Button>
-                <ReloadOutlined type="ghost" style={{ fontSize: "17px" }} />
+                <ReloadOutlined
+                  type="ghost"
+                  onClick={() => {
+                    setFilter("");
+                    setSortQuery("");
+                    setCurrent(1);
+                    setPageSize(10);
+                  }}
+                  style={{ fontSize: "17px" }}
+                />
               </div>
             }
           >
@@ -131,6 +147,19 @@ const OrderTable = () => {
               onChange={onChange}
               dataSource={listOrder}
               rowKey="_id"
+              pagination={{
+                current: current,
+                pageSize: pageSize,
+                showSizeChanger: true,
+                total: total,
+                showTotal: (total, range) => {
+                  return (
+                    <div>
+                      {range[0]}-{range[1]} trên {total} rows
+                    </div>
+                  );
+                },
+              }}
             />
           </Card>
         </Col>
