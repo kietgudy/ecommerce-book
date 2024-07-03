@@ -40,6 +40,9 @@
             color: #49a8d7;
             font-weight: 500;
             position: relative;
+            &:hover {
+              opacity: 0.7;
+            }
           }
   
           .custom-button::before {
@@ -97,7 +100,7 @@
         padding: 0 10px;
         border-radius: 10px;
         color: #000000e0;
-        gap: 10px;
+        gap: 5px;
         &:hover {
           color: #49a8d7;
         }

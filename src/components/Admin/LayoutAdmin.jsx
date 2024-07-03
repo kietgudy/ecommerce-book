@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   AppstoreOutlined,
   HeartTwoTone,
@@ -25,23 +25,6 @@ const items = [
     key: "dashboard",
     icon: <AppstoreOutlined />,
   },
-  // {
-  //   label: <span>Manage Users</span>,
-  //   // key: 'user',
-  //   icon: <TeamOutlined />,
-  //   children: [
-  //     {
-  //       label: <Link to="/admin/user">CRUD</Link>,
-  //       key: "crud",
-  //       icon: <TeamOutlined />,
-  //     },
-  //     {
-  //       label: "Files1",
-  //       key: "file1",
-  //       icon: <TeamOutlined />,
-  //     },
-  //   ],
-  // },
   {
     label: <Link to="/admin/user">Manage Users</Link>,
     key: "user",
@@ -63,6 +46,19 @@ const LayoutAdmin = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [activeMenu, setActiveMenu] = useState("dashboard");
   const user = useSelector((state) => state.account.user);
+
+  useEffect(() => {
+    if (window.location.pathname.includes("/book")) {
+      setActiveMenu("book");
+    }
+    if (window.location.pathname.includes("/user")) {
+      setActiveMenu("user");
+    }
+    if (window.location.pathname.includes("/order")) {
+      setActiveMenu("order");
+    }
+  }, []);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -106,7 +102,8 @@ const LayoutAdmin = () => {
       >
         <div style={{ margin: 16, textAlign: "center" }}>ADMIN</div>
         <Menu
-          defaultSelectedKeys={[activeMenu]}
+          // defaultSelectedKeys={[activeMenu]}
+          selectedKeys={[activeMenu]}
           mode="inline"
           items={items}
           onClick={(e) => setActiveMenu(e.key)}
@@ -125,7 +122,7 @@ const LayoutAdmin = () => {
           </span>
           <Dropdown menu={{ items: itemsDropdown }} trigger={["click"]}>
             <a onClick={(e) => e.preventDefault()}>
-              <Space style={{fontSize: "15px", color: "black"}}>
+              <Space style={{ fontSize: "15px", color: "black" }}>
                 <Avatar src={urlAvatar} />
                 {user?.fullName}
                 <DownOutlined />
