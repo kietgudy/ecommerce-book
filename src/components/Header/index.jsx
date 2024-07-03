@@ -118,6 +118,7 @@ const Header = ({ setSearchTerm }) => {
       handleSearch();
     }
   };
+  const [isInputFocused, setIsInputFocused] = useState(false);
 
   return (
     <>
@@ -139,18 +140,26 @@ const Header = ({ setSearchTerm }) => {
             >
               <img src="./logo.png" alt="BookShop" style={{ height: "88px" }} />
             </Link>
-            <div className="page-header__search">
+            <div
+              className={`page-header__search ${
+                isInputFocused ? "input-focused" : ""
+              }`}
+            >
               <SearchOutlined
                 style={{ fontSize: "18px" }}
                 className="icon-search"
               />
               <input
-                className="input-search"
+                className={`input-search ${
+                  isInputFocused ? "input-focused" : ""
+                }`}
                 type={"text"}
                 placeholder="Bạn tìm gì hôm nay"
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
                 onKeyDown={handleKeyDown}
+                onFocus={() => setIsInputFocused(true)}
+                onBlur={() => setIsInputFocused(false)}
               />
               <Button
                 className="custom-button"
