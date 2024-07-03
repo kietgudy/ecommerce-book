@@ -1,4 +1,6 @@
-import { FilterTwoTone, ReloadOutlined, UnorderedListOutlined } from "@ant-design/icons";
+import {
+  UnorderedListOutlined,
+} from "@ant-design/icons";
 import {
   Row,
   Col,
@@ -13,10 +15,11 @@ import {
   Spin,
 } from "antd";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { callFetchCategory, callFetchListBook } from "../../services/api";
 import "./home.scss";
 const Home = () => {
+  const [searchTerm, setSearchTerm] = useOutletContext();
   const [listCategory, setListCategory] = useState([]);
 
   const [listBook, setListBook] = useState([]);
@@ -46,7 +49,7 @@ const Home = () => {
 
   useEffect(() => {
     fetchBook();
-  }, [current, pageSize, filter, sortQuery]);
+  }, [current, pageSize, filter, sortQuery, searchTerm]);
 
   const fetchBook = async () => {
     setIsLoading(true);
@@ -56,6 +59,9 @@ const Home = () => {
     }
     if (sortQuery) {
       query += `&${sortQuery}`;
+    }
+    if (searchTerm) {
+      query += `&mainText=/${searchTerm}/i`;
     }
 
     const res = await callFetchListBook(query);
@@ -196,7 +202,20 @@ const Home = () => {
               >
                 <Form.Item
                   name="category"
-                  label={<span style={{fontSize: 16, fontWeight: 650, display: "flex", gap: 7}}> <UnorderedListOutlined />Danh mục sản phẩm</span>}
+                  label={
+                    <span
+                      style={{
+                        fontSize: 16,
+                        fontWeight: 650,
+                        display: "flex",
+                        gap: 7,
+                      }}
+                    >
+                      {" "}
+                      <UnorderedListOutlined />
+                      Danh mục sản phẩm
+                    </span>
+                  }
                   labelCol={{ span: 24 }}
                 >
                   <Checkbox.Group>
@@ -302,18 +321,27 @@ const Home = () => {
                   </div>
                 </Form.Item>
               </Form>
-              <Button type="primary" style={{width: "100%"}} onClick={() => {
-                    form.resetFields();
-                    setFilter("");
-                  }}>Xóa tất cả</Button>
+              <Button
+                type="primary"
+                style={{ width: "100%" }}
+                onClick={() => {
+                  form.resetFields();
+                  setFilter("");
+                }}
+              >
+                Xóa tất cả
+              </Button>
             </div>
-            
           </Col>
 
           <Col md={20} xs={24}>
             <Spin spinning={isLoading} tip="Loading...">
               <div
-                style={{ padding: "8px 20px", background: "#fff", borderRadius: 5 }}
+                style={{
+                  padding: "8px 20px",
+                  background: "#fff",
+                  borderRadius: 5,
+                }}
               >
                 <Row>
                   <Tabs

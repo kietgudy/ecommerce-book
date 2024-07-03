@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import LoginPage from "./pages/login";
 import "./styles/reset.scss";
 import "./styles/global.scss";
@@ -24,10 +24,11 @@ import History from "./pages/order/history";
 import OrderTable from "./components/Admin/ManageOrders/OrderTable";
 
 const Layout = () => {
+  const [searchTerm, setSearchTerm] = useState("")
   return (
     <div className="layout">
-      <Header />
-      <Outlet />
+      <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+      <Outlet context={[searchTerm, setSearchTerm]} />
       <Footer />
     </div>
   );

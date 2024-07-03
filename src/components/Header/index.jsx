@@ -14,7 +14,8 @@ import { callLogout } from "../../services/api";
 import { Link, useNavigate } from "react-router-dom";
 import { doLogoutAction } from "../../redux/account/accountSlice";
 
-const Header = () => {
+const Header = ({ setSearchTerm }) => {
+  const [searchInput, setSearchInput] = useState("");
   const [openDrawer, setOpenDrawer] = useState(false);
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
   const user = useSelector((state) => state.account.user);
@@ -96,6 +97,18 @@ const Header = () => {
       </div>
     );
   };
+  const handleClearSearch = () => {
+    setSearchInput("");
+    setSearchTerm("");
+  };
+  const handleSearch = () => {
+    setSearchTerm(searchInput);
+  };
+  const handleKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      handleSearch();
+    }
+  };
 
   return (
     <>
@@ -110,7 +123,11 @@ const Header = () => {
             >
               ☰
             </div>
-            <Link to={"/"} className="page-header__logo">
+            <Link
+              to={"/"}
+              className="page-header__logo"
+              onClick={handleClearSearch}
+            >
               <img src="./logo.png" alt="BookShop" style={{ height: "88px" }} />
             </Link>
             <div className="page-header__search">
@@ -122,26 +139,44 @@ const Header = () => {
                 className="input-search"
                 type={"text"}
                 placeholder="Bạn tìm gì hôm nay"
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                onKeyDown={handleKeyDown}
               />
-              <Button className="custom-button" type="link">
+              <Button
+                className="custom-button"
+                type="link"
+                onClick={() => {
+                  handleSearch();
+                }}
+              >
                 Tìm kiếm
               </Button>
             </div>
           </div>
           <nav className="page-header__bottom">
             <div id="navigation" className="navigation">
-              <Link to={"/"} className="navigation-home">
+              <Link
+                to={"/"}
+                className="navigation-home"
+                onClick={handleClearSearch}
+              >
                 <HomeOutlined />
                 Trang chủ
               </Link>
               <div className="navigation__user">
                 {!isAuthenticated ? (
-                  <span onClick={() => navigate("/login")}><Avatar icon={<UserOutlined />} /></span>
+                  <span onClick={() => navigate("/login")}>
+                    <Avatar icon={<UserOutlined />} />
+                  </span>
                 ) : (
                   <Dropdown menu={{ items }} trigger={["click"]}>
                     <a onClick={(e) => e.preventDefault()}>
                       <Space>
-                        <Avatar src={urlAvatar} style={{ border: "1px solid #49a8d7"}} />
+                        <Avatar
+                          src={urlAvatar}
+                          style={{ border: "1px solid #49a8d7" }}
+                        />
                         {user?.fullName}
                         <DownOutlined />
                       </Space>
