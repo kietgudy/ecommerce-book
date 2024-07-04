@@ -64,7 +64,6 @@
           border: none;
           outline: none;
           flex: 1;
-          
         }
       }
     }
@@ -100,7 +99,7 @@
       text-decoration: none;
       padding: 0 10px;
       border-radius: 10px;
-      color: #000000e0;
+      color: #303030e0;
       gap: 5px;
       &:hover {
         color: #49a8d7;
@@ -181,8 +180,8 @@
   }
 }
 .page-header__search.input-focused {
-  background-color: #f5f5f5; 
+  background-color: #f5f5f5;
 }
 .input-search.input-focused {
-  background-color: #f5f5f5; 
+  background-color: #f5f5f5;
 }

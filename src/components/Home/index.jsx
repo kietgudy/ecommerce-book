@@ -335,7 +335,7 @@ const Home = () => {
           </Col>
 
           <Col md={20} xs={24}>
-            <Spin spinning={isLoading} tip="Loading...">
+            <Spin spinning={isLoading} tip="Bạn đợi tí nha...">
               <div
                 style={{
                   padding: "8px 20px",
