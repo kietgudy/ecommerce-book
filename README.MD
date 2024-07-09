@@ -1,3 +1,4 @@
+#email: admin@gmail.com #pass: 123456
 - React 18
 - Ant Design
 - React Router 6
